@@ -1,5 +1,5 @@
-import Services from "./class.services";
-import UserMongoDao from "../daos/mongodb/users/user.dao";
+import Services from "./class.services.js";
+import UserMongoDao from "../daos/mongodb/users/user.dao.js";
 import jwt from "jsonwebtoken";
 import 'dotenv/config';
 

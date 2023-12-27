@@ -1,17 +1,17 @@
-import { createResponse } from "../utils";
+import { createResponse } from "../utils.js";
 export default class Controller {
     constructor(service) {
         this.service = service;
     }
-    async getAll(req,res,next) {
-        try {
+    getAll = async (req, res, next) => {
+        try {          
             const data = await this.service.getAll();
-            createResponse(res,200,data);
+            createResponse(res, 200, data);
         } catch (error) {
             next(error.message);
         }
     }
-    async getById(req,res,next) {
+    getById = async (req,res,next) =>{
         try {
             const data = await this.service.getById(req.params.id);
             if(data) createResponse(res,200,data);
@@ -20,7 +20,7 @@ export default class Controller {
             next(error.message);
         }
     }
-    async create (req,res,next) {
+    create = async (req,res,next) =>{
         try {
             const data = await this.service.create(req.body);
             if(data) createResponse(res,201,data);
@@ -29,11 +29,30 @@ export default class Controller {
             next(error.message);
         }
     }
-    async update (req,res,next) {
+    update  = async (req,res,next) =>{
         try {
-            const data = await this.service.update(req.params.id,req.body);
-            if(data) createResponse(res,200,data);
-            else createResponse(res,404,{ method: 'update',error: "Bad request"});
+            const {id} = req.params;
+            const data = await this.service.getById(id);
+            if(!data) {
+                createResponse(res,404,{ method: 'update',error: "Bad request"})
+            } else {
+                const updated = await this.service.update(id,req.body);
+                createResponse(res,200,updated);
+            }
+        } catch (error) {
+            next(error.message);
+        }
+    }
+    delete = async (req,res,next) =>{
+        try {
+            const {id} = req.params;
+            const data = await this.service.getById(id);
+            if(!data) {
+                createResponse(res,404,{ method: 'delete',error: "Bad request"})
+            } else {
+                await this.service.delete(id);
+                createResponse(res,200,{message: "Deleted"});
+            }
         } catch (error) {
             next(error.message);
         }

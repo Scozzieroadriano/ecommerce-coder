@@ -1,6 +1,6 @@
 import { Router } from "express";
 import userRoutes from "./user.routes.js";
-
+import productRoutes from "./product.routes.js";
 export default class ApiRoutes {
     constructor() {
         this.router = Router();
@@ -8,6 +8,7 @@ export default class ApiRoutes {
     }
     initRoutes() {
         this.router.use('/users', userRoutes);
+        this.router.use('/products', productRoutes)
     }
     getRouter() {
         return this.router;

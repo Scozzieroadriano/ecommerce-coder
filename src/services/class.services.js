@@ -3,7 +3,7 @@ export default class Services {
         this.dao = dao;
     }
     async getAll() {
-        try {
+        try {            
             return await this.dao.getAll();
         } catch (error) {
             console.log(error);

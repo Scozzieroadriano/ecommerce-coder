@@ -1,4 +1,4 @@
-import { MongoDao } from "../mongo.dao.js";
+import MongoDao from "../mongo.dao.js";
 import { UserModel } from "./user.model.js";
 import { hashPassword, isValidPassword } from "../../../utils.js";
 

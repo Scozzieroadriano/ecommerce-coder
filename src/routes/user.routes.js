@@ -1,8 +1,10 @@
 import { Router } from "express";
-
+import  verifyToken  from "../middlewares/verify.token.js";
+import UserController from "../controllers/user.controller.js";
 const router = Router();
+const userController = new UserController();
 
-router.get("/", (req, res) => {
-  res.send("Api Routes Users");
-});
+router.post("/register", userController.register);
+router.post("/login", userController.login);
+router.get("/profile", verifyToken, userController.profile);
 export default router;
