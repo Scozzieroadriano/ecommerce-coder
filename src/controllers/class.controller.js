@@ -46,7 +46,9 @@ export default class Controller {
     delete = async (req,res,next) =>{
         try {
             const {id} = req.params;
+            console.log(req.params);
             const data = await this.service.getById(id);
+            console.log(data);
             if(!data) {
                 createResponse(res,404,{ method: 'delete',error: "Bad request"})
             } else {
