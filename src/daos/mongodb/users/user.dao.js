@@ -9,7 +9,7 @@ export default class UserMongoDao extends MongoDao {
     async register(user) {
         try {
             const {email, password} = user;
-            const userExists = this.getByEmail(email);
+            const userExists = await this.getByEmail(email);
             if(!userExists) {
                 user.password = hashPassword(password);
                 return await this.model.create(user);                
@@ -23,7 +23,7 @@ export default class UserMongoDao extends MongoDao {
     async login(user) {
         try {
             const {email, password} = user;
-            const userExists = this.getByEmail(email);
+            const userExists = await this.getByEmail(email);
             if(userExists) {
                 if(isValidPassword(password, userExists)) {
                     return userExists;
