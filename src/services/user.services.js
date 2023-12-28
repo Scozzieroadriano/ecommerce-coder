@@ -13,8 +13,7 @@ export default class UserService extends Services {
     async #generateToken(user) {
         try {
             const payload = {
-                id: user._id,
-                email: user.email
+                id: user._id
             };
             return jwt.sign(payload, SECRET_KEY_JWT, {expiresIn: '10m'});
         } catch (error) {
