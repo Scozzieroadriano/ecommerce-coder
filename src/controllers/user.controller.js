@@ -28,13 +28,23 @@ export default class UserController extends Controller {
     }
     profile = async (req,res,next) => {
         try {
-            const { first_name, last_name, email, role } = req.user;
+            const { first_name, last_name,role, _id } = req.user;
             createResponse(res,200,{
+                _id,
                 first_name,
                 last_name,
-                email,
                 role
             });
+        } catch (error) {
+            next(error.message);
+        }
+    }
+    googleResponse = async (req,res,next) => {
+        try {
+            console.log('req.user ::',req.user);
+            //console.log('usser:',req.user);
+            //createResponse(res,200,{msg:'Register or login with google'})
+    
         } catch (error) {
             next(error.message);
         }

@@ -12,6 +12,7 @@ export default async function verifyToken(req, res, next) {
         } else {
             const token = AuthHeader.split(" ")[1];
             const decode = jwt.verify(token, SECRET_KEY_JWT);
+            console.log(decode);
             const user = await userDao.getById(decode.id);
             if (!user) {
                 return res.status(404).json({ message: "Unauthorized" });

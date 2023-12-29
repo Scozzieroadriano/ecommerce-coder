@@ -4,6 +4,9 @@ import { connectToMongo } from './config/conection.js';
 import  ApiRoutes  from './routes/api.routes.js';
 import { __dirname } from './utils.js';
 import { errorHandler } from './middlewares/errorHandler.js';
+import passport from 'passport';
+import session from 'express-session';
+import './passport/google.js';
 const apiRoutes = new ApiRoutes().getRouter()
 
 
@@ -13,7 +16,12 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../public'));
-
+app.use(session({
+  secret: 'tu secreto aquí',
+  resave: false,
+  saveUninitialized: true,
+}));
+app.use(passport.initialize());
 app.use(errorHandler);
 app.use('/api', apiRoutes);
 
