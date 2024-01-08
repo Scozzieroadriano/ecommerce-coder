@@ -10,5 +10,5 @@ router.post("/register", userController.register);
 router.post("/login", userController.login);
 router.get("/profile", verifyToken, userController.profile);
 
-router.get("/oauth2/redirect/accounts.google.com",passport.authenticate('google',{assignProperty: 'user'}),userController.googleResponse);
+router.get("/oauth2/redirect/accounts.google.com", passport.authenticate('google', { session: false }), userController.googleResponse);
 export default router;

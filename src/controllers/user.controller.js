@@ -29,6 +29,7 @@ export default class UserController extends Controller {
     profile = async (req,res,next) => {
         try {
             const { first_name, last_name,role, _id } = req.user;
+
             createResponse(res,200,{
                 _id,
                 first_name,
@@ -41,9 +42,13 @@ export default class UserController extends Controller {
     }
     googleResponse = async (req,res,next) => {
         try {
-            console.log('req.user ::',req.user);
-            //console.log('usser:',req.user);
-            //createResponse(res,200,{msg:'Register or login with google'})
+            //console.log('req.header ::',req.header);
+            res.header('Authorization',req.user);
+            res.cookie('token', req.user, { 
+                httpOnly: true, 
+                maxAge: 10 * 60 * 1000,
+            });
+            createResponse(res,200,{msg:'Token Guardado en una cookie'})
     
         } catch (error) {
             next(error.message);

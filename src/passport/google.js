@@ -25,7 +25,6 @@ try {
         role: 'user'
     }
     const token = await userService.authGoogle(newUser);
-    console.log(token);
     done(null, token);
 } catch (error) {
     console.log(error);
@@ -33,11 +32,3 @@ try {
 }
 
 passport.use('google', new GoogleStrategy(strategyOptions, registerOrLogin));
-
-passport.serializeUser((user, done) => {
-    done(null, user);
-});
-
-passport.deserializeUser((id, done) => {
-    done(null, id);
-});

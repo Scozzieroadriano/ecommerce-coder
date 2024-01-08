@@ -10,16 +10,6 @@ export default class UserService extends Services {
         super(new UserMongoDao());
     }
 
-    async #generateToken(user) {
-        try {
-            const payload = {
-                id: user._id
-            };
-            return jwt.sign(payload, SECRET_KEY_JWT, {expiresIn: '10m'});
-        } catch (error) {
-            console.log(error);
-        }
-    }
     async register(user) {
         try {
             return await this.dao.register(user);
@@ -49,6 +39,16 @@ export default class UserService extends Services {
         } catch (error) {
             console.log(error);
             throw new Error('Error en el proceso de autenticación con Google');
+        }
+    }
+    async #generateToken(user) {
+        try {
+            const payload = {
+                id: user._id
+            };
+            return jwt.sign(payload, SECRET_KEY_JWT, {expiresIn: '10m'});
+        } catch (error) {
+            console.log(error);
         }
     }
 }
