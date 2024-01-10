@@ -48,7 +48,7 @@ export default class UserController extends Controller {
                 httpOnly: true, 
                 maxAge: 10 * 60 * 1000,
             });
-            createResponse(res,200,{msg:'Token Guardado en una cookie'})
+            res.redirect('http://localhost:8080/api/session/current')
     
         } catch (error) {
             next(error.message);
