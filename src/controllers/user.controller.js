@@ -54,4 +54,15 @@ export default class UserController extends Controller {
             next(error.message);
         }
     }
+
+    logout = async  (req, res) => {
+        res.clearCookie('token');
+        req.logout((err) => {
+            if (err) {
+              console.error('Error al cerrar sesión:', err);
+              return res.send(err); 
+            }
+            createResponse(res,200,{message:'Hasta luego'})
+          });
+    }
 }

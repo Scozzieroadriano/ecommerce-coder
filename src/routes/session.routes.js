@@ -8,5 +8,7 @@ const userController = new UserController();
 
 router.get("/current", verifyToken, userController.profile);
 
+router.get('/logout', userController.logout);
+
 router.get("/oauth2/redirect/accounts.google.com", passport.authenticate('google', { session: false }), userController.googleResponse);
 export default router;
