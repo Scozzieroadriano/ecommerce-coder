@@ -27,14 +27,12 @@ export default class UserService extends Services {
     async authGoogle(user) {
        try {
             const userFound = await this.dao.getByEmail(user.email);
-            
             if (userFound) {
                 return await this.dao.login(user)
             }else {
                 return await this.dao.register(user)                
             }
         } catch (error) {
-            console.log(error);
             throw new Error('Error en el proceso de autenticación con Google');
         }
     }

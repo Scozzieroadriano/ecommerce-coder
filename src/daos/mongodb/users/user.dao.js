@@ -17,7 +17,8 @@ export default class UserMongoDao extends MongoDao {
             if(!userExists) {
                 user.password = hashPassword(password);
                 const newUser =  await this.model.create(user);
-                return await this.#generateToken(newUser)                
+                const token = await this.#generateToken(newUser)
+                return {message: 'Registro Exitoso', user: newUser, token: token};                
             } else {
                 throw new Error('El usuario ya existe');
             }
@@ -31,7 +32,8 @@ export default class UserMongoDao extends MongoDao {
             const userExists = await this.getByEmail(email);
             if(userExists) {
                 if(isValidPassword(password, userExists)) {
-                    return await this.#generateToken(userExists);
+                    const token = await this.#generateToken(userExists)
+                    return {message: 'Login Exitoso', user: userExists, token: token};     
                 } else {
                     throw new Error('Invalid password');
                 }

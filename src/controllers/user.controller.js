@@ -28,28 +28,22 @@ export default class UserController extends Controller {
     }
     profile = async (req,res,next) => {
         try {
-            const { first_name, last_name,role, _id } = req.user;
-
-            createResponse(res,200,{
-                _id,
-                first_name,
-                last_name,
-                role
-            });
+            console.log(req.user);
+            createResponse(res,200,req.user
+            );
         } catch (error) {
             next(error.message);
         }
     }
     googleResponse = async (req,res,next) => {
         try {
-            //console.log('req.header ::',req.header);
             res.header('Authorization',req.user);
-            res.cookie('token', req.user, { 
+            res.cookie('token', req.user.token, { 
                 httpOnly: true, 
                 maxAge: 10 * 60 * 1000,
             });
-            res.redirect('http://localhost:8080/api/session/current')
-    
+            createResponse(res,200,req.user
+                );
         } catch (error) {
             next(error.message);
         }
