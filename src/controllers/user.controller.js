@@ -62,7 +62,7 @@ export default class UserController extends Controller {
               console.error('Error al cerrar sesión:', err);
               return res.send(err); 
             }
-            createResponse(res,200,{message:'Hasta luego'})
+            res.render('login')
           });
     }
 }

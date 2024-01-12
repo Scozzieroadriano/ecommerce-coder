@@ -3,16 +3,18 @@ import userRoutes from "./user.routes.js";
 import productRoutes from "./product.routes.js";
 import cartRoutes from "./cart.routes.js";
 import sessionRoutes from "./session.routes.js";
+import viewRoutes from "./views.routes.js";
 export default class ApiRoutes {
     constructor() {
         this.router = Router();
         this.initRoutes();
     }
     initRoutes() {
-        this.router.use('/users', userRoutes);
-        this.router.use('/products', productRoutes);
-        this.router.use('/carts', cartRoutes);
-        this.router.use('/session', sessionRoutes);
+        this.router.use('/api/users', userRoutes);
+        this.router.use('/api/products', productRoutes);
+        this.router.use('/api/carts', cartRoutes);
+        this.router.use('/api/session', sessionRoutes);
+        this.router.use('/', viewRoutes);
     }
     getRouter() {
         return this.router;

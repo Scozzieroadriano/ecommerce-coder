@@ -1,9 +1,12 @@
 import Services from "./class.services.js";
-import CartMongoDao from "../daos/mongodb/carts/cart.dao.js";
+import persistence from "../persistence/persistence.js";
+
+const { cartDao } = persistence;
+
 
 export default class CartService extends Services {
     constructor() {
-        super(new CartMongoDao());
+        super(cartDao);
     }
 
     async addProductToCart(idCart, idProduct) {

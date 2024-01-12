@@ -1,10 +1,12 @@
 import Services from "./class.services.js";
-import UserMongoDao from "../daos/mongodb/users/user.dao.js";
+import persistence from "../persistence/persistence.js";
+
+const { userDao } = persistence;
 
 
 export default class UserService extends Services {
     constructor() {
-        super(new UserMongoDao());
+        super(userDao);
     }
 
     async register(user) {
