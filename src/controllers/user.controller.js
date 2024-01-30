@@ -28,10 +28,12 @@ export default class UserController extends Controller {
     }
     profile = async (req,res,next) => {
         try {
-            createResponse(res,200,req.user
-            );
+            const {_id} = req.user;
+            const user = await this.service.getUser(_id);
+            if (!user) return false;
+            else return createResponse(res,200,user);
         } catch (error) {
-            next(error.message);
+            next(error.message)
         }
     }
     googleResponse = async (req,res,next) => {
@@ -56,15 +58,5 @@ export default class UserController extends Controller {
             }
             res.render('login')
           });
-    }
-    user = async (req, res, next) => {
-        try {
-            const {_id} = req.user;
-            const user = await this.service.getUser(_id);
-            if (!user) return false;
-            else return createResponse(res,200,user);
-        } catch (error) {
-            next(error.message)
-        }
     }
 }
