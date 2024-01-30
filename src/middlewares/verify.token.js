@@ -8,7 +8,7 @@ export default async function verifyToken(req, res, next) {
     try {
         // TOMO EL TOKEN DESDE LA COOKIE, SI NO EXISTE LO TOMO DESDE EL HEADER
         const AuthHeader = req.cookies.token || req.get("Authorization").split(" ")[1]
-        console.log(AuthHeader);
+        
         if (!AuthHeader) {
             return res.status(401).json({ message: "Unauthorized" });
         } else {

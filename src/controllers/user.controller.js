@@ -28,7 +28,6 @@ export default class UserController extends Controller {
     }
     profile = async (req,res,next) => {
         try {
-            console.log(req.user);
             createResponse(res,200,req.user
             );
         } catch (error) {
@@ -42,14 +41,13 @@ export default class UserController extends Controller {
                 httpOnly: true, 
                 maxAge: 10 * 60 * 1000,
             });
-            createResponse(res,200,req.user
-                );
+            res.redirect('http://localhost:8080/api/session/current/');
         } catch (error) {
             next(error.message);
         }
     }
 
-    logout = async  (req, res) => {
+    logout = async  (req, res, next) => {
         res.clearCookie('token');
         req.logout((err) => {
             if (err) {
@@ -58,5 +56,15 @@ export default class UserController extends Controller {
             }
             res.render('login')
           });
+    }
+    user = async (req, res, next) => {
+        try {
+            const {_id} = req.user;
+            const user = await this.service.getUser(_id);
+            if (!user) return false;
+            else return createResponse(res,200,user);
+        } catch (error) {
+            next(error.message)
+        }
     }
 }
