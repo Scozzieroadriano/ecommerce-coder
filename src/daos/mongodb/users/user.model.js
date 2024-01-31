@@ -12,4 +12,8 @@ const userSchema = new Schema({
     role: { type: String, default: 'user' },
 });
 
+userSchema.pre('find', function () {
+    this.populate('cart'); 
+  });
+
 export const UserModel = model(usersCollectionName, userSchema);

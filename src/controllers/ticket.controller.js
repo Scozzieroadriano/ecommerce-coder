@@ -1,5 +1,7 @@
 import Controller from "./class.controller.js";
 import TicketService from "../services/ticket.services.js";
+import { createResponse } from "../utils.js";
+
 const ticketService = new TicketService();
 export default class TicketController extends Controller {
     constructor() {
@@ -8,10 +10,11 @@ export default class TicketController extends Controller {
 
     generateTicket = async (req, res, next) =>{
         try {
-            console.log('HOLA CARAOLA');
-            
+            const data = await ticketService.generateTicket(req.user._id)
+            createResponse(res, 200, data)
         } catch (error) {
             next(error.message);
         }
     }
+
 }
