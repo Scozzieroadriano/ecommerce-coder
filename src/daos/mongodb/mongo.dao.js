@@ -12,6 +12,7 @@ export default class MongoDao {
     }
 
     async getById(id) {
+        console.log(id);
         try {
             return await this.model.findById(id);            
         } catch (error) {
