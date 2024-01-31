@@ -17,12 +17,14 @@ const strategyOptions = {
 
 const registerOrLogin = async (accessToken, refreshToken, profile, done) => {
 try {
+
     const newUser = {
         first_name: profile._json.given_name,
         last_name: profile._json.family_name,
         email: profile._json.email,
         password: profile.id,
         role: 'user'
+
     }
     const token = await userService.authGoogle(newUser);
     done(null, token);

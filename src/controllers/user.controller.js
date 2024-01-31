@@ -8,7 +8,7 @@ export default class UserController extends Controller {
     register = async (req,res,next) => {
         try {
             const data = await this.service.register(req.body);
-            if(data) createResponse(res,201,data);
+            if(data) {createResponse(res,201,data);}
             else createResponse(res,404,{ method: 'register',error: "User already exists"});
         } catch (error) {
             next(error.message);
@@ -19,7 +19,12 @@ export default class UserController extends Controller {
             const data = await this.service.login(req.body);
             if(!data) createResponse(res,404,{ method: 'login',error: "Error login"});
             else {
-                res.header('Authorization',data);
+                
+                res.cookie('token', data.token, { 
+                    httpOnly: true, 
+                    maxAge: 10 * 60 * 1000,
+                });
+                res.header('Authorization',data.token);
                 createResponse(res,200,data);
             }
         } catch (error) {
@@ -38,11 +43,11 @@ export default class UserController extends Controller {
     }
     googleResponse = async (req,res,next) => {
         try {
-            res.header('Authorization',req.user);
             res.cookie('token', req.user.token, { 
                 httpOnly: true, 
                 maxAge: 10 * 60 * 1000,
             });
+            res.header('Authorization',req.user);
             res.redirect('http://localhost:8080/api/session/current/');
         } catch (error) {
             next(error.message);

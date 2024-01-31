@@ -18,6 +18,7 @@ export default class UserMongoDao extends MongoDao {
                 user.password = hashPassword(password);
                 const newUser =  await this.model.create(user);
                 const token = await this.#generateToken(newUser)
+
                 return {message: 'Registro Exitoso', user: newUser, token: token};                
             } else {
                 throw new Error('El usuario ya existe');
@@ -59,7 +60,8 @@ export default class UserMongoDao extends MongoDao {
             const payload = {
                 id: user._id
             };
-            return jwt.sign(payload, SECRET_KEY_JWT, {expiresIn: '10m'});
+            const token = jwt.sign(payload, SECRET_KEY_JWT, {expiresIn: '10m'});
+            return token
         } catch (error) {
             console.log(error);
         }

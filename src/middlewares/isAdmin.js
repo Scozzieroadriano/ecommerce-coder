@@ -14,12 +14,12 @@ export default async function verifyToken(req, res, next) {
             const token = AuthHeader;
             const decode = jwt.verify(token, SECRET_KEY_JWT);
             const user = await userDao.getById(decode.id);
-            if (!user) {
-                return res.status(404).json({ message: "Unauthorized" });
-            }
-            req.user = user;
-            next();
+            if (user.role === "admin") {
+                next() 
+            } else { 
+                return res.status(404).json({ message: "Solo el administrador puede realizar esta operacion" });
         }
+    }
     } catch (error) {
         return res.status(401).json({ message: "Unauthorized" });
     }
