@@ -1,9 +1,7 @@
 import Services from "./class.services.js";
 import persistence from "../persistence/persistence.js";
 import UserRepository from "../repository/user.repository.js";
-import CartService from "../services/cart.services.js";
 const userRepository = new UserRepository();
-const cartService = new CartService();
 const { userDao } = persistence;
 
 
@@ -42,15 +40,7 @@ export default class UserService extends Services {
           if (userFound) {
             return await this.dao.login(user);
           } else {
-            const newUser = await this.dao.register(user);
-            if (newUser) {
-              const newCart = await cartService.create();
-              // Actualizar el usuario con la referencia al nuevo carrito
-              await this.dao.update(newUser.user._id, { cart: newCart._id });
-              return newUser;
-            } else {
-              return false;
-            }
+            return await this.dao.register(user);
           }
         } catch (error) {
           throw new Error('Error en el proceso de autenticación con Google');

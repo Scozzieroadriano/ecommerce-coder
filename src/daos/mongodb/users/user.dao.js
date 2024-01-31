@@ -1,9 +1,11 @@
 import MongoDao from "../mongo.dao.js";
 import { UserModel } from "./user.model.js";
 import { hashPassword, isValidPassword } from "../../../utils.js";
+import CartMongoDao from "../carts/cart.dao.js";
 import jwt from "jsonwebtoken";
 import 'dotenv/config';
 
+const cartMongoDao = new CartMongoDao();
 const SECRET_KEY_JWT = process.env.SECRET_KEY_JWT;
 
 export default class UserMongoDao extends MongoDao {
@@ -18,7 +20,8 @@ export default class UserMongoDao extends MongoDao {
                 user.password = hashPassword(password);
                 const newUser =  await this.model.create(user);
                 const token = await this.#generateToken(newUser)
-
+                const newCart = await cartMongoDao.create()
+                await this.update(newUser._id, { cart: newCart._id });
                 return {message: 'Registro Exitoso', user: newUser, token: token};                
             } else {
                 throw new Error('El usuario ya existe');
