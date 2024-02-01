@@ -6,6 +6,7 @@ const SECRET_KEY_JWT = process.env.SECRET_KEY_JWT;
 
 export default async function verifyToken(req, res, next) {
     try {
+        console.log(req.params);
         // TOMO EL TOKEN DESDE LA COOKIE, SI NO EXISTE LO TOMO DESDE EL HEADER
         const AuthHeader = req.cookies.token || req.get("Authorization").split(" ")[1]
         if (!AuthHeader) {
