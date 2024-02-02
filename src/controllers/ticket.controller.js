@@ -10,9 +10,11 @@ export default class TicketController extends Controller {
 
     generateTicket = async (req, res, next) =>{
         try {
-            console.log(req.cart);
-            //const data = await ticketService.generateTicket(req.user._id)
-            //createResponse(res, 200, data)
+            const { cartId } = req.params;    
+            const userId = req.user._id.toString();        
+            console.log(userId);
+            const data = await ticketService.generateTicket(userId, cartId);
+            createResponse(res, 200, data)
         } catch (error) {
             next(error.message);
         }

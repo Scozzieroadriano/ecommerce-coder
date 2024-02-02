@@ -11,12 +11,12 @@ export default class TicketService extends Services {
     constructor() {
         super(ticketDao);
     }
-    async generateTicket(userId) {
+    async generateTicket(userId, cartId) {
         try {
             let amountAcc = 0;
             const user = await userService.getUser(userId);            
             if(!user) return false;
-            const cart = await cartService.getById(user.cart);
+            const cart = await cartService.getById(cartId);
             if(!cart) return false;
             for (const p of cart.products) {
                 const idProduct = p.product._id.toString()
@@ -29,9 +29,9 @@ export default class TicketService extends Services {
                 code : uuidv4(),
                 purchase_datetime: new Date().toLocaleString(),
                 amount: amountAcc,
-                purcharser: user.email
+                purchaser: user.email
             });
-
+            console.log(ticket);
             cart.products = []
             cart.save();
 
