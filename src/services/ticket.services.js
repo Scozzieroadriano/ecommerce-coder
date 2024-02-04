@@ -2,9 +2,11 @@ import Services from "./class.services.js";
 import TicketMongoDao from "../daos/mongodb/tickets/ticket.dao.js";
 import UserService from "./user.services.js";
 import CartService from "./cart.services.js";
+import ProductService from "./product.services.js";
 const userService = new UserService();
 const ticketDao = new TicketMongoDao();
 const cartService = new CartService();
+const productService = new ProductService();
 import { v4 as uuidv4 } from "uuid";
 
 export default class TicketService extends Services {
@@ -24,6 +26,7 @@ export default class TicketService extends Services {
                     const amount = p.quantity * p.product.price
                     amountAcc += amount
                 }
+                await productService.update(idProduct, { stock: p.product.stock - p.quantity})
             }
             const ticket = await ticketDao.create({
                 code : uuidv4(),
@@ -31,7 +34,7 @@ export default class TicketService extends Services {
                 amount: amountAcc,
                 purchaser: user.email
             });
-            console.log(ticket);
+            
             cart.products = []
             cart.save();
 
