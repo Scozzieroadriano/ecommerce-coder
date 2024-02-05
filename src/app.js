@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import express from 'express';
 import  ApiRoutes  from './routes/api.routes.js';
-import { __dirname } from './utils.js';
+import { __dirname } from './utils/utils.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import passport from 'passport';
 import session from 'express-session';

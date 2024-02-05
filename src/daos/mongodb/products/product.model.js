@@ -4,6 +4,7 @@ import mongoosePaginate from 'mongoose-paginate-v2';
 export const ProductsCollectionName = "products";
 
 const productSchema = new Schema({
+    
     title: {
         type: String,
         required: true,

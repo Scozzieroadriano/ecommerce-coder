@@ -1,6 +1,6 @@
 import MongoDao from "../mongo.dao.js";
 import { UserModel } from "./user.model.js";
-import { hashPassword, isValidPassword } from "../../../utils.js";
+import { hashPassword, isValidPassword } from "../../../utils/utils.js";
 import CartMongoDao from "../carts/cart.dao.js";
 import jwt from "jsonwebtoken";
 import 'dotenv/config';
