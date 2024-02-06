@@ -1,6 +1,6 @@
 import { fakerES as faker } from '@faker-js/faker'
 
-export const generateProcuts = () =>{
+export const generateProducts = () =>{
     return {
         
         title : faker.commerce.productName(),
@@ -13,4 +13,3 @@ export const generateProcuts = () =>{
         thumbnails : faker.image.url()    
     }  
 }
-console.log(generateProcuts());
