@@ -42,7 +42,6 @@ export default class CartMongoDao extends MongoDao {
                 throw new Error("No se encontró el carrito");
             }
         } catch (error) {
-            console.log(error);
             throw error;
         }
     }
@@ -57,7 +56,6 @@ export default class CartMongoDao extends MongoDao {
                 throw new Error("No se encontró el carrito");
             }
         } catch (error) {
-            console.log(error);
             throw error;
         }
     }
@@ -77,7 +75,6 @@ export default class CartMongoDao extends MongoDao {
                 throw new Error("No se encontró el carrito");
             }
         } catch (error) {
-            console.log(error);
             throw error;
         }
     }
@@ -93,7 +90,6 @@ export default class CartMongoDao extends MongoDao {
                 throw new Error("No se encontró el carrito");
             }
         } catch (error) {
-            console.log(error);
             throw error;
         }
     }	

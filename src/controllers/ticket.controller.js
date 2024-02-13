@@ -12,7 +12,6 @@ export default class TicketController extends Controller {
         try {
             const { cartId } = req.params;    
             const userId = req.user._id.toString();        
-            console.log(userId);
             const data = await ticketService.generateTicket(userId, cartId);
             createResponse(res, 200, data)
         } catch (error) {

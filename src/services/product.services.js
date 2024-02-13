@@ -17,7 +17,7 @@ export default class ProductService extends Services {
         }
         return this.productsmocks
       } catch (error) {
-        console.log(error);
+        throw error;
       }
     }
 
@@ -26,7 +26,7 @@ export default class ProductService extends Services {
             return this.productsmocks;
             
         } catch (error) {
-            console.log(error);
+          throw error;
         }
     }
 }

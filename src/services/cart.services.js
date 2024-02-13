@@ -13,7 +13,6 @@ export default class CartService extends Services {
         try {
             return await this.dao.addProductToCart(idCart, idProduct);
         } catch (error) {
-            console.log(error);
             throw error;
         }
     }
@@ -22,7 +21,6 @@ export default class CartService extends Services {
         try {
             return await this.dao.removeSingleProduct(idCart, idProduct);
         } catch (error) {
-            console.log(error);
             throw error;
         }
     }
@@ -31,7 +29,6 @@ export default class CartService extends Services {
         try {
             return await this.dao.removeAllProducts(idCart);
         } catch (error) {
-            console.log(error);
             throw error;
         }
     }
@@ -39,7 +36,6 @@ export default class CartService extends Services {
         try {
             return await this.dao.updateProductQuantity(idCart, idProduct, quantity);
         } catch (error) {
-            console.log(error);
             throw error;
         }
     }
@@ -47,7 +43,6 @@ export default class CartService extends Services {
         try {
             return await this.dao.cartUpdate(idCart, products);
         } catch (error) {
-            console.log(error);
             throw error;
         }
     }

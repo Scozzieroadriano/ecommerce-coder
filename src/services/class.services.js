@@ -6,35 +6,35 @@ export default class Services {
         try {            
             return await this.dao.getAll();
         } catch (error) {
-            console.log(error);
+            throw error;
         }
     }
     async getById(id) {
         try {
             return await this.dao.getById(id);
         } catch (error) {
-            console.log(error);
+            throw error;
         }
     }
     async create(data) {
         try {
             return await this.dao.create(data);
         } catch (error) {
-            console.log(error);
+            throw error;
         }
     }
     async update(id, data) {
         try {
             return await this.dao.update(id, data);
         } catch (error) {
-            console.log(error);
+            throw error;
         }
     }
     async delete(id) {
         try {
             return await this.dao.delete(id);
         } catch (error) {
-            console.log(error);
+            throw error;
         }
     }
 }

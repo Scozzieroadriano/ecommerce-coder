@@ -23,7 +23,7 @@ export default class UserService extends Services {
         try {
             return await this.dao.register(user);
         } catch (error) {
-            console.log(error);
+            throw error;
         }
     }
     async login(user) {
@@ -31,7 +31,7 @@ export default class UserService extends Services {
             const userFound = await this.dao.login(user);
             return userFound
         } catch (error) {
-            console.log(error);
+            throw error;
         }
     }
     async authGoogle(user) {

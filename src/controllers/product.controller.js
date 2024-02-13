@@ -1,7 +1,7 @@
 import Controller from "./class.controller.js";
 import ProductServices from "../services/product.services.js";
 import { createResponse } from "../utils/utils.js";
-
+import { productionLogger } from "../utils/logger.winston.js";
 export default class ProductController extends Controller {
     constructor() {
         super(new ProductServices());
@@ -11,7 +11,9 @@ export default class ProductController extends Controller {
         try {
             const {cant} = req.body;
             const data = await this.service.createProductsMock(cant || 100 );
-            createResponse(res,201,data);
+            if (data) {
+                productionLogger.info('Productos mockeados creados correctamente');
+                createResponse(res,201,data)}
         } catch (error) {
             next(error.message);
         }

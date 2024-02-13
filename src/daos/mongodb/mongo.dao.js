@@ -7,7 +7,7 @@ export default class MongoDao {
         try {
             return await this.model.find();            
         } catch (error) {
-            console.log(error);
+            throw error;
         }
     }
 
@@ -15,7 +15,7 @@ export default class MongoDao {
         try {
             return await this.model.findById(id);            
         } catch (error) {
-            console.log(error);
+            throw error;
         }
     }
 
@@ -23,7 +23,7 @@ export default class MongoDao {
         try {
             return await this.model.create(data);            
         } catch (error) {         
-            console.log(error);
+            throw error;
         }
     }
 
@@ -31,14 +31,14 @@ export default class MongoDao {
         try {
             return await this.model.findByIdAndUpdate(id, data, { new: true });
         } catch (error) {
-            console.log(error);
+            throw error;
         }
     }
     async delete(id) {
         try {
             return await this.model.findByIdAndDelete(id);
         } catch (error) {
-            console.log(error);
+            throw error;
         }
     }
 }	

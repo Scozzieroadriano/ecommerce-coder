@@ -1,4 +1,6 @@
 import { createResponse } from "../utils/utils.js";
+import { productionLogger } from "../utils/logger.winston.js";
+
 export default class Controller {
     constructor(service) {
         this.service = service;
@@ -9,6 +11,8 @@ export default class Controller {
             createResponse(res, 200, data);
         } catch (error) {
             next(error.message);
+            productionLogger.error(error.message);
+
         }
     }
     getById = async (req,res,next) =>{
@@ -23,10 +27,14 @@ export default class Controller {
     create = async (req,res,next) =>{
         try {
             const data = await this.service.create(req.body);
-            if(data) createResponse(res,201,data);
+            if(data) {
+                productionLogger.info('Exito al crear');
+                createResponse(res,201,data)}
             else createResponse(res,404,{ method: 'create',error: "Bad request"});
         } catch (error) {
             next(error.message);
+            productionLogger.error(error.message);
+
         }
     }
     update  = async (req,res,next) =>{
@@ -41,14 +49,14 @@ export default class Controller {
             }
         } catch (error) {
             next(error.message);
+            productionLogger.error(error.message);
+
         }
     }
     delete = async (req,res,next) =>{
         try {
             const {id} = req.params;
-            console.log(req.params);
             const data = await this.service.getById(id);
-            console.log(data);
             if(!data) {
                 createResponse(res,404,{ method: 'delete',error: "Bad request"})
             } else {
@@ -57,6 +65,8 @@ export default class Controller {
             }
         } catch (error) {
             next(error.message);
+            productionLogger.error(error.message);
+
         }
     }
 }

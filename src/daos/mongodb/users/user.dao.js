@@ -27,7 +27,7 @@ export default class UserMongoDao extends MongoDao {
                 throw new Error('El usuario ya existe');
             }
         } catch (error) {
-            console.log(error);
+            throw error;
         }
     }   
     async login(user) {
@@ -45,7 +45,7 @@ export default class UserMongoDao extends MongoDao {
                 throw new Error('El usuario no existe');
             }
         } catch (error) {
-            console.log(error);
+            throw error;
         }
     }
     async getByEmail(email) {
@@ -54,7 +54,7 @@ export default class UserMongoDao extends MongoDao {
             if (!userFound) return false;
             else return userFound;    
         } catch (error) {
-            console.log(error);
+            throw error;
         }
     }
 

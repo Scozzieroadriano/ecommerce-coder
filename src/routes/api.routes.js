@@ -6,6 +6,7 @@ import sessionRoutes from "./session.routes.js";
 import ticketRoutes from "./ticket.routes.js";
 import viewRoutes from "./views.routes.js";
 import mailingRoutes from "./mailing.routes.js";
+import loggerRoutes from "./log.test.routes.js"
 export default class ApiRoutes {
     constructor() {
         this.router = Router();
@@ -19,6 +20,7 @@ export default class ApiRoutes {
         this.router.use('/api/session', sessionRoutes);
         this.router.use('/', viewRoutes);
         this.router.use('/api/gmail',mailingRoutes);
+        this.router.use('/api', loggerRoutes);
     }
     getRouter() {
         return this.router;
