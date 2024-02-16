@@ -17,6 +17,18 @@ export default async function verifyToken(req, res, next) {
             if (!user) {
                 return res.status(404).json({ message: "Unauthorized" });
             }
+            const now = Math.floor(Date.now() / 1000);
+            const tokenExp = decode.exp
+            const timeUntilExp = tokenExp - now
+
+            if (timeUntilExp <= 500){
+                const newToken = await userDao.generateToken(user)
+                //vuelvo a setear token en header y cookie
+                res.set("Authorization", `Bearer ${newToken}`);
+                res.cookie('token', newToken, { 
+                    maxAge: 10 * 60 * 1000,
+                    httpOnly: true });
+            }
             req.user = user;
             next();
         }
