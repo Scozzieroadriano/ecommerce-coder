@@ -1,8 +1,8 @@
-import Services from "./class.services.js";
-import TicketMongoDao from "../daos/mongodb/tickets/ticket.dao.js";
-import UserService from "./user.services.js";
-import CartService from "./cart.services.js";
-import ProductService from "./product.services.js";
+import Services from "../class.services.js";
+import TicketMongoDao from "../../daos/mongodb/tickets/ticket.dao.js";
+import UserService from "../users/user.services.js";
+import CartService from "../carts/cart.services.js";
+import ProductService from "../products/product.services.js";
 const userService = new UserService();
 const ticketDao = new TicketMongoDao();
 const cartService = new CartService();

@@ -1,5 +1,5 @@
 import Controller from "./class.controller.js";
-import CartService from "../services/cart.services.js";
+import CartService from "../services/carts/cart.services.js";
 import { createResponse } from "../utils/utils.js";
 export default class CartController extends Controller {
     constructor() {

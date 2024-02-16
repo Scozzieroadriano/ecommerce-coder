@@ -1,0 +1,6 @@
+{"level":"error","message":"El usuario no existe"}
+{"level":"error","message":"mailingService.sendMailing is not a function"}
+{"level":"error","message":"El usuario ya existe"}
+{"level":"error","message":"connect ECONNREFUSED ::1:465"}
+{"level":"error","message":"El usuario ya existe"}
+{"level":"error","message":"connect ECONNREFUSED ::1:465"}

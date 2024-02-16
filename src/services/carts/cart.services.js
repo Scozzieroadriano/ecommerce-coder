@@ -1,5 +1,5 @@
-import Services from "./class.services.js";
-import persistence from "../persistence/persistence.js";
+import Services from "../class.services.js";
+import persistence from "../../persistence/persistence.js";
 
 const { cartDao } = persistence;
 

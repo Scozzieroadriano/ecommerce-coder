@@ -1,6 +1,6 @@
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import passport from "passport";    
-import UserService from "../services/user.services.js";
+import UserService from "../services/users/user.services.js";
 import 'dotenv/config';
 const userService = new UserService();
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;

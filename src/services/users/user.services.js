@@ -1,6 +1,8 @@
-import Services from "./class.services.js";
-import persistence from "../persistence/persistence.js";
-import UserRepository from "../repository/user.repository.js";
+import Services from "../class.services.js";
+import persistence from "../../persistence/persistence.js";
+import UserRepository from "../../repository/user.repository.js";
+import MailingService from "./mailing.services.js";
+const mailingService = new MailingService();
 const userRepository = new UserRepository();
 const { userDao } = persistence;
 
@@ -21,7 +23,9 @@ export default class UserService extends Services {
 
     async register(user) {
         try {
-            return await this.dao.register(user);
+            const response = await this.dao.register(user);
+            await mailingService.sendMail(user, 'register')
+            return response
         } catch (error) {
             throw error;
         }
@@ -40,7 +44,9 @@ export default class UserService extends Services {
           if (userFound) {
             return await this.dao.login(user);
           } else {
-            return await this.dao.register(user);
+            const newUser =  await this.dao.register(user);
+            await mailingService.sendMail(user, 'register')
+            return newUser;
           }
         } catch (error) {
           throw new Error('Error en el proceso de autenticación con Google');

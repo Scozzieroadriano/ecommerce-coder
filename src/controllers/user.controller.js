@@ -1,5 +1,5 @@
 import Controller from "./class.controller.js";
-import UserService from "../services/user.services.js";
+import UserService from "../services/users/user.services.js";
 import { createResponse } from "../utils/utils.js";
 import { productionLogger } from "../utils/logger.winston.js";
 export default class UserController extends Controller {
