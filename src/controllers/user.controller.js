@@ -64,6 +64,20 @@ export default class UserController extends Controller {
         }
     }
 
+    resetPassword = async (req, res, next) => {
+        try {
+            const { email } = req.body;
+            const result = await this.service.resetPassword(email);
+            if (result) {
+                createResponse(res, 200, result)
+            } else {
+                return false;
+            }
+        } catch (error) {
+            next(error.message);
+        }
+    }
+
     logout = async (req, res, next) => {
         res.clearCookie('token');
         req.logout((err) => {

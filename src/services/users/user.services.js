@@ -24,8 +24,9 @@ export default class UserService extends Services {
     async register(user) {
         try {
             const response = await this.dao.register(user);
+            if (!response) return false;
             await mailingService.sendMail(user, 'register')
-            return response
+            return response;
         } catch (error) {
             throw error;
         }
@@ -52,5 +53,18 @@ export default class UserService extends Services {
           throw new Error('Error en el proceso de autenticación con Google');
         }
       }
+    async resetPassword(email) {
+        try {
+            const response = await this.dao.resetPassword(email);
+            if (response){
+                await mailingService.sendMail(response.user, 'resetPass') 
+                return response; 
+            } else {
+                return false;
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
       
 }

@@ -50,7 +50,7 @@ export default class UserMongoDao extends MongoDao {
     }
     async getByEmail(email) {
         try {
-            const userFound = await this.model.findOne({email});  
+            const userFound = await this.model.findOne({email});
             if (!userFound) return false;
             else return userFound;    
         } catch (error) {
@@ -58,15 +58,29 @@ export default class UserMongoDao extends MongoDao {
         }
     }
 
-    async generateToken(user) {
+    async generateToken(user, expires) {
         try {
             const payload = {
                 id: user._id
             };
-            const token = jwt.sign(payload, SECRET_KEY_JWT, {expiresIn: '10m'});
+            const token = jwt.sign(payload, SECRET_KEY_JWT, {expiresIn: expires || '10m'});
             return token
         } catch (error) {
-            console.log(error);
+            throw error;
+        }
+    }
+
+    async resetPassword(email) {
+        try {
+            const user = await this.getByEmail(email);
+            if (!user) {
+                throw new Error('Usuario no encontrado');
+            }else {
+                const token = await this.generateToken(user, '1h');
+                return { message: 'Se ha enviado un enlace de restablecimiento de contraseña al correo electrónico del usuario', token:token, user:user };
+            }            
+        } catch (error) {
+            throw error;
         }
     }
 }

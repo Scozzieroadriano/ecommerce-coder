@@ -22,7 +22,7 @@ export default async function verifyToken(req, res, next) {
             const timeUntilExp = tokenExp - now
 
             if (timeUntilExp <= 500){
-                const newToken = await userDao.generateToken(user)
+                const newToken = await userDao.generateToken(user, '10m')
                 //vuelvo a setear token en header y cookie
                 res.set("Authorization", `Bearer ${newToken}`);
                 res.cookie('token', newToken, { 

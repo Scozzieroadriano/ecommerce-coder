@@ -25,7 +25,7 @@ export default class MailingService {
                 msg = await this.createMsgRegister(username);
                 subj = 'Bienvenid@';
             } else if (service === 'resetPass') {
-                msg = await this.createMsgResetPassword(username);
+                msg = await this.createMsgResetPassword(email);
                 subj = 'Recuperación de contraseña'
             }
 
@@ -37,7 +37,6 @@ export default class MailingService {
             }
             await this.transporter.sendMail(gmailOptions)
             if (token) return token;
-            console.log('email enviado');
         } catch (error) {
             throw new Error(error.message);
         }
@@ -47,8 +46,8 @@ export default class MailingService {
         return `<h1> Hola ${username}, Bienvenido al e-commerce!</h1>`
     }
 
-    async createMsgResetPassword(username) {
-        return `<p>¡Hola ${username},
+    async createMsgResetPassword(email) {
+        return `<p>¡Hola ${email},
                 Hace click 
                 <a href='http://localhost:8080/new-pass'>AQUÍ</a>
                 para restablecer la contraseña
