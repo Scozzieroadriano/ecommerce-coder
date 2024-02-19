@@ -83,4 +83,20 @@ export default class UserMongoDao extends MongoDao {
             throw error;
         }
     }
+    async changePassword(user,pass, newPassword) {
+        try {
+            if (pass === newPassword) {
+                if(isValidPassword(pass, user)) {
+                    throw new Error("La contraseña nueva no puede ser igual a la contraseña anterior");
+                }else {
+                    const newPass = hashPassword(pass);
+                    return await this.update(user._id, { password: newPass });
+                }
+            } else{
+                throw new Error("las constraseñas no coinciden");
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
 }

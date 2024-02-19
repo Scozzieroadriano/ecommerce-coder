@@ -36,6 +36,11 @@ const productSchema = new Schema({
     thumbnails: {
         type: String,
     },
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: 'user', 
+        required: true,
+    }
 });
 
 productSchema.plugin(mongoosePaginate);

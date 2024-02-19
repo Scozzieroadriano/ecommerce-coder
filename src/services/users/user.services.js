@@ -66,5 +66,14 @@ export default class UserService extends Services {
             throw error;
         }
     }
+    async changePassword(user,pass,newPassword){
+        try {
+            const response = await this.dao.changePassword(user,pass, newPassword);
+            if (response) return response;
+            return false;
+        } catch (error) {
+            throw error;
+        }
+    }
       
 }

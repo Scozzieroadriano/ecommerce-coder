@@ -2,4 +2,13 @@
 
 <h1>Registrese O Inicie sesion con Google</h1>
 <a href="/api/users/oauth2/redirect/accounts.google.com">SingIn/SingUp Google</a>
+<h1>Restablecer Contraseña</h1>
 
+<p>Por favor, ingrese su dirección de correo electrónico a continuación. Le enviaremos un enlace de restablecimiento de contraseña a su dirección de correo electrónico.</p>
+
+<form action="/api/users/reset" method="POST">
+    <label for="email">Correo Electrónico:</label>
+    <input type="email" id="email" name="email" required>
+
+    <button type="submit">Restablecer Contraseña</button>
+</form>

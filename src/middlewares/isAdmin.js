@@ -14,10 +14,10 @@ export default async function verifyToken(req, res, next) {
             const token = AuthHeader;
             const decode = jwt.verify(token, SECRET_KEY_JWT);
             const user = await userDao.getById(decode.id);
-            if (user.role === "admin") {
+            if (user.role === "admin" || user.role === "premium") {
                 next() 
             } else { 
-                return res.status(404).json({ message: "Solo el administrador puede realizar esta operacion" });
+                return res.status(404).json({ message: "Su rol no permite realizar esta operacion" });
         }
     }
     } catch (error) {

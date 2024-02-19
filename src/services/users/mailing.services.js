@@ -49,7 +49,7 @@ export default class MailingService {
     async createMsgResetPassword(email) {
         return `<p>¡Hola ${email},
                 Hace click 
-                <a href='http://localhost:8080/new-pass'>AQUÍ</a>
+                <a href='http://localhost:8080/reset-password'>AQUÍ</a>
                 para restablecer la contraseña
                 </p>`
     }
