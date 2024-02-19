@@ -29,4 +29,15 @@ export default class ProductService extends Services {
           throw error;
         }
     }
+
+    async createProduct(data,user){
+      try {
+        const newData  = {...data}
+        const owner = user.role === "premium" ? user.email : "admin"; 
+        newData.owner = owner
+        return await this.dao.create(newData)
+      } catch (error) {
+        throw error;
+      }
+    }
 }

@@ -26,4 +26,17 @@ export default class ProductController extends Controller {
             next(error.message);
         }
     }
+
+    createProduct = async (req,res,next) => {
+        try {
+            const data = req.body
+            const user = req.user
+            const response = await this.service.createProduct(data, user)
+            if (response) createResponse(res,200,response);
+            return false
+
+        } catch (error) {
+            next(error.message);
+        }
+    }
 }
