@@ -75,5 +75,18 @@ export default class UserService extends Services {
             throw error;
         }
     }
+    async changeRoles(userId) {
+        try {
+            const user = await userRepository.getUser(userId);
+            if (user.role === "user"){
+                user.role = "premium";
+            } else if (user.role === "premium") {
+                user.role = "user"
+            }
+            return await this.dao.update(userId, user); 
+        } catch (error) {
+            
+        }
+    }
       
 }

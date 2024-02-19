@@ -16,3 +16,6 @@
 {"level":"error","message":"Error al solicitar el restablecimiento de contraseña: user is not defined","stack":"ReferenceError: user is not defined\n    at UserService.resetPassword (file:///C:/Users/rcast/OneDrive/Escritorio/Adriano/ecommerce-coder/src/services/users/user.services.js:60:47)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async resetPassword (file:///C:/Users/rcast/OneDrive/Escritorio/Adriano/ecommerce-coder/src/controllers/user.controller.js:70:28)"}
 {"level":"error","message":"Error al solicitar el restablecimiento de contraseña: user is not defined","stack":"ReferenceError: user is not defined\n    at UserService.resetPassword (file:///C:/Users/rcast/OneDrive/Escritorio/Adriano/ecommerce-coder/src/services/users/user.services.js:61:47)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async resetPassword (file:///C:/Users/rcast/OneDrive/Escritorio/Adriano/ecommerce-coder/src/controllers/user.controller.js:70:28)"}
 {"level":"error","message":"Invalid password"}
+{"level":"error","message":"El usuario no existe"}
+{"level":"error","message":"El usuario no existe"}
+{"level":"error","message":"Invalid password"}

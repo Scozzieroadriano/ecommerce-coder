@@ -2,6 +2,7 @@ import Controller from "./class.controller.js";
 import UserService from "../services/users/user.services.js";
 import { createResponse } from "../utils/utils.js";
 import { productionLogger } from "../utils/logger.winston.js";
+import { response } from "express";
 export default class UserController extends Controller {
     constructor() {
         super(new UserService());
@@ -94,6 +95,17 @@ export default class UserController extends Controller {
         } catch (error) {
             next(error.message);
         }
+    }
+    changeRoles = async (req, res, next) => {
+        try {
+            const { uId } = req.params
+            const response = await this.service.changeRoles(uId);
+            if (response) {
+                createResponse(res, 200, response)   
+            } else return false;
+        } catch (error) {
+            next(error.message);
+        }         
     }
 
     logout = async (req, res, next) => {

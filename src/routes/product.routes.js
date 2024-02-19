@@ -10,6 +10,6 @@ router.post("/createmocks",productController.createProductsMock);
 router.get("/getmocks",productController.getProductsMock);
 router.get("/:id",productController.getById);
 router.post("/",isPremium,productController.createProduct);
-router.put("/:id",isAdmin,productController.update);
+router.put("/:id",isPremium,productController.update);
 router.delete("/:id",isPremium,productController.delete);
 export default router;
