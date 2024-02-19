@@ -70,11 +70,11 @@ export default class UserController extends Controller {
             const { email } = req.body;
             const result = await this.service.resetPassword(email);
             if (result) {
-                res.cookie('token', result.token, {
+                res.cookie('tokenpass', result.token, {
                     httpOnly: true,
                     maxAge: 3600000, // 3600 segundos * 1000 milisegundos
                 });
-                res.header('Authorization', req.user);
+                res.header('AuthorizationPass', result.token);
                 createResponse(res, 200, result.message)
             } else {
                 return false;
@@ -89,7 +89,7 @@ export default class UserController extends Controller {
             const user = req.user;
             const response = await this.service.changePassword(user,newPassword, confirmPassword);
             if (response) {
-                res.clearCookie('token');
+                res.clearCookie('tokenpass');
                 createResponse(res, 200, "Su contraseña se ha modificado")
             }
         } catch (error) {

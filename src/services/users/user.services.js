@@ -57,7 +57,7 @@ export default class UserService extends Services {
         try {
             const response = await this.dao.resetPassword(email);
             if (response){
-                await mailingService.sendMail(response.user, 'resetPass') 
+                await mailingService.sendMail(response.user, 'resetPass', response.token) 
                 return response; 
             } else {
                 return false;
