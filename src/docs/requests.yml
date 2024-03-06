@@ -1,0 +1,49 @@
+components:
+  parameters:
+    schemas:
+      BodyProductPost:
+        type: object
+        required:
+          - title
+          - description
+          - code
+          - price
+          - status
+          - stock
+          - category
+          - owner
+        properties:
+          title:
+            type: string
+            description: "Nombre del Producto"
+          description:
+            type: string
+            description: "Descripcion del Producto"
+          code:
+            type: string
+            description: "Codigo del Producto"
+          price:
+            type: number
+            description: "Precio del Producto"
+          status:
+            type: boolean
+            description: "Estado del Producto (si esta activo o no)"
+          stock:
+            type: number
+            description: "Stock del Producto"
+          category:
+            type: string
+            description: "Categoria del Producto"
+          owner:
+            type: string
+            description: "Nombre del Propietario"
+        example:
+          title: "Pelota Firmada por Messi"
+          description: "Pelota autografiada por el mejor jugador de futbol de todos los tiempos"
+          code: "PROD0001"
+          price: 100
+          status: true
+          stock: 10
+          category: "Valioso"
+          image: "http://asdawdasdasd.image.com/asdwdas.png"
+          owner: "propietario@gmail.com"

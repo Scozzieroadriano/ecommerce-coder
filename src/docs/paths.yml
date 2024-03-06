@@ -1,0 +1,31 @@
+paths:
+  /products:
+    post:
+      tags:
+        - Products
+      summary: Creación de nuevo producto en base de datos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/BodyProductPost'
+        required: true
+      responses:
+        200:
+          description: Creacion exitosa del producto
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Products/PostProduct'
+        401:
+          description: Falla al crear un producto - No logeado o token invalido
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Products/ValidationTokenAndPermissions'
+        500:
+          description: Internal Server Error
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Products/Error'

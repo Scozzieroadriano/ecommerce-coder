@@ -23,13 +23,13 @@ export default async function isPremium(req, res, next) {
                 if (user.email === product.owner) {
                     next(); // si el usuario es el propietario del producto
                 } else {
-                    return res.status(403).json({ message: "El producto solo puede ser modificado por el usuario creador" });
+                    return res.status(401).json({ message: "El producto solo puede ser modificado por el usuario creador" });
                 }
             } else if (user.role === "admin" || user.role === "premium") {
                 req.user = user;
                 next(); // si el usuario es un administrador o premium
             } else {
-                return res.status(403).json({ message: "Su rol no permite realizar esta operación" });
+                return res.status(401).json({ message: "Su rol no permite realizar esta operación" });
             }
         }
     } catch (error) {

@@ -19,3 +19,6 @@
 {"level":"error","message":"El usuario no existe"}
 {"level":"error","message":"El usuario no existe"}
 {"level":"error","message":"Invalid password"}
+{"level":"error","message":"El usuario no existe"}
+{"level":"error","message":"Invalid password"}
+{"level":"error","message":"Invalid password"}

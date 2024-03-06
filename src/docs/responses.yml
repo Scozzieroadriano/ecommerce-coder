@@ -1,0 +1,101 @@
+components:
+  schemas:
+    Products:
+      PostProduct:
+        type: object
+        properties:
+          title:
+            type: string
+            description: "Nombre del Producto"
+          description:
+            type: string
+            description: "Descripción del Producto"
+          code:
+            type: string
+            description: "Código del Producto"
+          price:
+            type: number
+            description: "Precio del Producto"
+          status:
+            type: boolean
+            description: "Estado del Producto (si está activo o no)"
+          stock:
+            type: number
+            description: "Stock del Producto"
+          category:
+            type: string
+            description: "Categoría del Producto"
+          owner:
+            type: string
+            description: "Nombre del Propietario"
+          id:
+            type: string
+            description: "Id del Producto"
+        example:
+          title: "Producto de prueba Luisito"
+          description: "Este es un producto de prueba"
+          code: "123956"
+          price: 99.99
+          status: true
+          stock: 10
+          category: "Prueba"
+          owner: "admin"
+          id: "65e7d22de8501735a05f4893"
+      GetProducts:
+        type: array
+        items:
+          properties:
+            title:
+              type: string
+              description: "Nombre del Producto"
+            description:
+              type: string
+              description: "Descripción del Producto"
+            code:
+              type: string
+              description: "Código del Producto"
+            price:
+              type: number
+              description: "Precio del Producto"
+            status:
+              type: boolean
+              description: "Estado del Producto (si está activo o no)"
+            stock:
+              type: number
+              description: "Stock del Producto"
+            category:
+              type: string
+              description: "Categoría del Producto"
+            owner:
+              type: string
+              description: "Nombre del Propietario"
+            id:
+              type: string
+              description: "Id del Producto"
+          example:
+            - title: "Producto de prueba Luisito"
+              description: "Este es un producto de prueba"
+              code: "123956"
+              price: 99.99
+              status: true
+              stock: 10
+              category: "Prueba"
+              owner: "admin"
+              id: "65e7d22de8501735a05f4893"
+      ValidationTokenAndPermissions:
+        type: object
+        properties:
+          message:
+            type: string
+            description: "Mensaje de respuesta si no tiene permisos específicos"
+        example:
+          - {message: "Su rol no permite realizar esta operación"}
+          - {message: "Unauthorized"}
+      Error:
+        type: object
+        properties:
+          message:
+            type: string
+            description: "Mensaje de respuesta del error"
+        example:
+          - {message: "products validation failed: stock: Path `stock` is required."}
