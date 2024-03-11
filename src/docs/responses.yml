@@ -69,19 +69,67 @@ components:
             owner:
               type: string
               description: "Nombre del Propietario"
+            thumbnails:
+              type: string
+              description: "Imagen del Producto"
             id:
               type: string
               description: "Id del Producto"
           example:
             - title: "Producto de prueba Luisito"
-              description: "Este es un producto de prueba"
-              code: "123956"
-              price: 99.99
-              status: true
-              stock: 10
-              category: "Prueba"
-              owner: "admin"
-              id: "65e7d22de8501735a05f4893"
+            - description: "Este es un producto de prueba"
+            - code: "123956"
+            - price: 99.99
+            - status: true
+            - stock: 10
+            - category: "Prueba"
+            - owner: "admin"
+            - thumbnails: "https://firebasestorage.googleapis.com/v0/b/coderproyect-4f210.appspot.com/o/image-products%2Fmonitores%2Fmonitor-24-prime.jpeg?alt=media&token=0269b7d5-5c05-4e45-a4bc-9185a9acb913"    
+            - id: "65e7d22de8501735a05f4893"
+      GetProductById:
+        type: object
+        properties:
+          title:
+            type: string
+            description: "Nombre del Producto"
+          description:
+            type: string
+            description: "Descripción del Producto"
+          code:
+            type: string
+            description: "Código del Producto"
+          price:
+            type: number
+            description: "Precio del Producto"
+          status:
+            type: boolean
+            description: "Estado del Producto (si está activo o no)"
+          stock:
+            type: number
+            description: "Stock del Producto"
+          category:
+            type: string
+            description: "Categoría del Producto"
+          owner:
+            type: string
+            description: "Nombre del Propietario"
+          thumbnails:
+            type: string
+            description: "Imagen del Producto"
+          id:
+            type: string
+            description: "Id del Producto"
+        example:
+          - owner: "admin"
+          - id: "656017f8c47b0521916d56a5"
+          - title: "Monitor 24'' Philips Full Hd Hdmi"
+          - description: "Disfruta de contenido en Full HD con el monitor de 24 pulgadas de Philips, perfecto para trabajo y entretenimiento."
+          - code: "P-2002"
+          - price: 71250
+          - status: true
+          - stock: 22
+          - category: "Monitores"
+          - thumbnails: "https://firebasestorage.googleapis.com/v0/b/coderproyect-4f210.appspot.com/o/image-products%2Fmonitores%2Fmonitor-24-prime.jpeg?alt=media&token=0269b7d5-5c05-4e45-a4bc-9185a9acb913"    
       ValidationTokenAndPermissions:
         type: object
         properties:

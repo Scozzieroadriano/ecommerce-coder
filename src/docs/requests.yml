@@ -45,5 +45,5 @@ components:
           status: true
           stock: 10
           category: "Valioso"
-          image: "http://asdawdasdasd.image.com/asdwdas.png"
+          thumbnails: "http://asdawdasdasd.image.com/asdwdas.png"
           owner: "propietario@gmail.com"

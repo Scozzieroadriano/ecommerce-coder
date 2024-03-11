@@ -23,7 +23,7 @@ export default async function isPremium(req, res, next) {
                 if (user.email === product.owner) {
                     next(); // si el usuario es el propietario del producto
                 } else {
-                    return res.status(401).json({ message: "El producto solo puede ser modificado por el usuario creador" });
+                    return res.status(402).json({ message: "El producto solo puede ser modificado por el usuario creador" });
                 }
             } else if (user.role === "admin" || user.role === "premium") {
                 req.user = user;
