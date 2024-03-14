@@ -1,5 +1,11 @@
+securityDefinitions:
+  BearerAuth:
+    type: apiKey
+    name: Authorization
+    in: header
+    description: Utiliza este campo para proporcionar un token JWT de autorización.
 paths:
-  /products:
+  /api/products:
     post:
       tags:
         - Products
@@ -20,7 +26,7 @@ paths:
         401:
           description: Falla al crear un producto - No logeado o token invalido
           content:
-            aplication/json:
+            application/json:
               schema:
                 $ref: '#/components/schemas/Products/ValidationTokenAndPermissions'
         500:
@@ -29,3 +35,87 @@ paths:
             aplication/json:
               schema:
                 $ref: '#/components/schemas/Products/Error'
+    get:
+      tags:
+        - Products
+      summary: Obtener todos los productos
+      responses:
+        200:
+          description: Obtencion exitosa de la lista todos los productos
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Products/GetProducts'
+        500:
+          description: Error de servidor
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Products/Error'
+  /api/products/{id}:
+    get:
+      tags:
+        - Products
+      summary: Obtener un producto por id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: id referente al producto
+          schema:
+            type: string
+      responses:
+        200:
+          description: producto encontrado
+          content: 
+            apication/json:
+              schema:
+              $ref: '#/components/parameters/schemas/BodyProductPost'
+        404:
+          description: No se encontro el producto
+          content: 
+            apication/json:
+              schema:
+                $ref: '#/components/schemas/Products/ErrorGetById'
+    put:
+      tags:
+        - Products
+      summary: Modificar un producto por id
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: id referente al producto
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/BodyProductPost'
+        required: true
+      responses:
+        200:
+          description: Producto Modificado Exitoso
+          content: 
+            apication/json:
+              schema:
+                $ref: '#/components/schemas/Products/PutProduct'
+        401:
+          description: Falla al crear un producto - No logeado o token invalido
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Products/ValidationTokenAndPermissions'
+        404:
+          description: No se encontro el producto
+          content: 
+            apication/json:
+              schema:
+                $ref: '#/components/schemas/Products/ErrorPutProduct'
+    delete:
+      tags:
+        - Products
+      summary: Borrar un producto

@@ -37,6 +37,9 @@ components:
           owner:
             type: string
             description: "Nombre del Propietario"
+          id:
+            type: string
+            description: "Id del Producto"
         example:
           title: "Pelota Firmada por Messi"
           description: "Pelota autografiada por el mejor jugador de futbol de todos los tiempos"
@@ -47,3 +50,4 @@ components:
           category: "Valioso"
           thumbnails: "http://asdawdasdasd.image.com/asdwdas.png"
           owner: "propietario@gmail.com"
+

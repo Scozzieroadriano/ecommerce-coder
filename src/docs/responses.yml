@@ -146,4 +146,54 @@ components:
             type: string
             description: "Mensaje de respuesta del error"
         example:
-          - {message: "products validation failed: stock: Path `stock` is required."}
+          - {message: "Error de servidor"}
+      ErrorGetById:
+        type: object
+        properties:
+          message:
+            type: string
+            description: "El producto no existe"
+      PutProduct:
+        type: object
+        properties:
+          title:
+            type: string
+            description: "Nombre del Producto"
+          description:
+            type: string
+            description: "Descripción del Producto"
+          price:
+            type: number
+            description: "Precio del Producto"
+          status:
+            type: boolean
+            description: "Estado del Producto (si está activo o no)"
+          stock:
+            type: number
+            description: "Stock del Producto"
+          category:
+            type: string
+            description: "Categoría del Producto"
+          owner:
+            type: string
+            description: "Nombre del Propietario"
+        example:
+          title: "Producto de prueba Luisito (actualizado)"
+          description: "Este es un producto de prueba actualizado"
+          price: 129.99
+          status: true
+          stock: 15
+          category: "Actualizado"
+          owner: "admin"
+      ErrorPutProduct:
+        type: object
+        properties:
+          method:
+            type: string
+            description: "Método que generó el error"
+          error:
+            type: string
+            description: "Descripción del error"
+        example:
+          method: "update"
+          error: "Bad request"
