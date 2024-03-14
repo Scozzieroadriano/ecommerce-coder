@@ -119,3 +119,17 @@ paths:
       tags:
         - Products
       summary: Borrar un producto
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID del producto que se desea borrar
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Producto eliminado exitosamente
+        '404':
+          description: Producto no encontrado
+        '500':
+          description: Error de servidor
