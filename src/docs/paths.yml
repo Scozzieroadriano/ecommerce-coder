@@ -77,6 +77,12 @@ paths:
             apication/json:
               schema:
                 $ref: '#/components/schemas/Products/ErrorGetById'
+        500:
+          description: Internal Server Error
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Products/Error'
     put:
       tags:
         - Products
@@ -115,10 +121,18 @@ paths:
             apication/json:
               schema:
                 $ref: '#/components/schemas/Products/ErrorPutProduct'
+        500:
+          description: Internal Server Error
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Products/Error'
     delete:
       tags:
         - Products
       summary: Borrar un producto
+      security:
+        - BearerAuth: []
       parameters:
         - in: path
           name: id
@@ -127,9 +141,196 @@ paths:
           schema:
             type: string
       responses:
-        '200':
-          description: Producto eliminado exitosamente
-        '404':
-          description: Producto no encontrado
-        '500':
+        200:
+          description: Producto Eliminado Exitoso
+          content: 
+            apication/json:
+              schema:
+                $ref: '#/components/schemas/Products/DeleteProduct'
+        404:
+          description: No se encontro el producto
+          content: 
+            apication/json:
+              schema:
+                $ref: '#/components/schemas/Products/DeleteProduct'
+        500:
+          description: Internal Server Error
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Products/Error'
+  /api/carts:
+    post:
+      tags:
+        - Carts
+      summary: Crea un nuevo carrito.      
+      responses:
+        200:
+          description: Carrito creado con éxito.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Carts/CartResponse"
+        500:
+          description: Internal Server Error
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Carts/Error'
+    get:
+      tags:
+        - Carts
+      summary: Obtener todos los carritos
+      responses:
+        200:
+          description: Obtencion exitosa de la lista todos los carritos
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Carts/GetAll'
+        500:
           description: Error de servidor
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Carts/Error'
+  /api/carts/{id}:
+    get:
+      tags:
+        - Carts
+      summary: Obtener un carrito por id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: id referente al producto
+          schema:
+            type: string
+      responses:
+        200:
+          description: Obtencion exitosa de la lista todos los carritos
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Carts/GetCartById'
+        404:
+          description: No se encontro el carrito
+          content: 
+            apication/json:
+              schema:
+                $ref: '#/components/schemas/Carts/CartNotFound'
+        500:
+          description: Error de servidor
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Carts/Error'
+    delete:
+      tags:
+        - Carts
+      summary: Borrar un carrito
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: id referente al producto
+          schema:
+            type: string
+      responses:
+        200:
+          description: Carrito borrado con exito
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Carts/DeleteProductInCart'
+        404:
+          description: No se encontro el carrito
+          content: 
+            apication/json:
+              schema:
+                $ref: '#/components/schemas/Carts/CartNotFound'
+        500:
+          description: Error de servidor
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Carts/Error'
+  /api/carts/{id}/products/{pId}:
+    post:
+      tags:
+        - Carts
+      summary: Añadir un producto al carrito
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: id referente al carrito
+          schema:
+            type: string
+        - in: path
+          name: pId
+          required: true
+          description: id referente al producto
+          schema:
+            type: string
+      responses:
+        200:
+          description: Obtencion exitosa de la lista todos los carritos
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Carts/AddProductInCart'
+        404:
+          description: Error de autorizacion
+          content: 
+            apication/json:
+              schema:
+                $ref: '#/components/schemas/Products/ValidationTokenAndPermissions'
+        500:
+          description: Error de servidor
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Carts/Error'
+    put:
+      tags:
+        - Carts
+      summary: Modificar cantidad de producto del carrito
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: id referente al carrito
+          schema:
+            type: string
+        - in: path
+          name: pId
+          required: true
+          description: id referente al producto
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/BodyPutQuantityInCart'
+        required: true
+      responses:
+        200:
+          description:  Cantidad de Producto Modificado
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Carts/ModifyQuantityProductInCart'
+        404:
+          description: Error de autorizacion
+          content: 
+            apication/json:
+              schema:
+                $ref: '#/components/schemas/Products/ValidationTokenAndPermissions'
+        500:
+          description: Error de servidor
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Carts/Error'

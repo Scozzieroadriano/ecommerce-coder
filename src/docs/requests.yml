@@ -50,4 +50,31 @@ components:
           category: "Valioso"
           thumbnails: "http://asdawdasdasd.image.com/asdwdas.png"
           owner: "propietario@gmail.com"
-
+      BodyCartPost:
+        type: object
+        properties:
+          products:
+            type: array
+            items:
+              type: object
+              properties:
+                product:
+                  type: string
+                  description: "ID del Producto"
+                quantity:
+                  type: number
+                  description: "Cantidad del Producto en el carrito"
+        example:
+          products:
+            - product: "612f7ab34b34e06a74d8f4f3"
+              quantity: 2
+            - product: "612f7ab34b34e06a74d8f4f4"
+              quantity: 1
+      BodyPutQuantityInCart:
+        type: object
+        properties:
+          quantity:
+          type: number
+          description: "Cantidad del Producto en el carrito"
+        example:
+          quantity: 2

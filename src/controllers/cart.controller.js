@@ -8,8 +8,9 @@ export default class CartController extends Controller {
 
     addProductToCart = async (req, res, next) =>{
         try {
-            const { cartId, pId } = req.params;
-            const data = await this.service.addProductToCart(cartId, pId);
+            const { id, pId } = req.params;
+            
+            const data = await this.service.addProductToCart(id, pId);
             createResponse(res, 200, data)
         } catch (error) {
             next(error.message);

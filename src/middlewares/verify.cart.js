@@ -8,7 +8,7 @@ const SECRET_KEY_JWT = process.env.SECRET_KEY_JWT;
 
 export default async function verifyCart(req, res, next) {
     try {
-        const { cartId, pId } = req.params
+        const { id, pId } = req.params
         // TOMO EL TOKEN DESDE LA COOKIE, SI NO EXISTE LO TOMO DESDE EL HEADER
         const AuthHeader = req.cookies.token || req.get("Authorization").split(" ")[1]
         if (!AuthHeader) {
@@ -18,7 +18,7 @@ export default async function verifyCart(req, res, next) {
             const decode = jwt.verify(token, SECRET_KEY_JWT);
             const user = await userDao.getById(decode.id);
             const product = await productService.getById(pId);
-            if (String(user.cart) === cartId) {
+            if (String(user.cart) === id) {
                 if (user.role === "premium" && user.email === product.owner) {
                     return res.status(401).json({ message: "No puede agregar productos propios al carrito" });
                 } else {

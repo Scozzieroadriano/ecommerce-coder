@@ -197,3 +197,95 @@ components:
         example:
           method: "update"
           error: "Bad request"
+      DeleteProduct:
+        type: object
+        properties:
+          method:
+            type: string
+            description: "Método que generó el error"
+          error:
+            type: string
+            description: "Descripción del error"
+        example:
+          method: "delete"
+          error: "Bad request"
+    Carts:
+      CartResponse:
+        type: object
+        properties:
+          id:
+            type: string
+            description: "Id del carrito"
+          quantity:
+            type: number
+            description: "Cantidad de productos en el carrito"
+        example:
+          id: "65f396fa05b41f32c0945ef3"
+          products: []
+      GetAll:
+        type: array
+        items:
+          properties:
+            id:
+              type: string
+              description: "Id del carrito"
+            quantity:
+              type: number
+              description: "Cantidad de productos en el carrito"
+          example:  
+            - id: "65e7d22de8501735a05f4893"       
+            - quantity: 5       
+      GetCartById:
+        type: object
+        properties:
+          id:
+            type: string
+            description: "Id del carrito"
+          quantity:
+            type: number
+            description: "Cantidad de productos en el carrito"
+        example:  
+          id: "65e7d22de8501735a05f4893"       
+          quantity: 5      
+      Error:
+        type: object
+        properties:
+          message:
+            type: string
+            description: "Mensaje de respuesta del error"
+        example:
+          - {message: "Error de servidor"}
+      CartNotFound:
+        type: object
+        properties:
+          method:
+            type: string
+            description: "Método que generó el error"
+          error:
+            type: string
+            description: "Descripción del error"
+        example:
+          method: "getById"
+          error: "Not Found"
+      AddProductInCart:
+        type: object
+        properties:
+          message:
+            type: string
+            description: "Mensaje de respuesta"
+        example:
+          message: "Producto agregado al carrito"
+      DeleteProductInCart:
+        type: object
+        properties:
+          message:
+           type: string
+        example:
+          message: "deleted"
+      ModifyQuantityProductInCart:
+       type: object
+       properties:
+         message:
+           type: string
+       example:
+          message: "Producto Actualizado"
