@@ -30,3 +30,14 @@
 {"level":"error","message":"Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials lh6-20020a170903290600b001d94678a76csm2450151plb.117 - gsmtp"}
 {"level":"error","message":"El usuario no existe"}
 {"level":"error","message":"El usuario no existe"}
+{"level":"error","message":"Invalid password"}
+{"level":"error","message":"Invalid password"}
+{"level":"error","message":"Invalid password"}
+{"level":"error","message":"El usuario no existe"}
+{"level":"error","message":"El usuario no existe"}
+{"level":"error","message":"Invalid password"}
+{"level":"error","message":"Invalid password"}
+{"level":"error","message":"El usuario ya existe"}
+{"level":"error","message":"Invalid password"}
+{"level":"error","message":"Invalid password"}
+{"level":"error","message":"Invalid password"}

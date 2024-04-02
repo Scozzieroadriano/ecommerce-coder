@@ -17,16 +17,24 @@ export default class MailingService {
 
     async sendMail(user, service, token = null) {
         try {
-            let msg = ''
-            let subj = ''
             const { username, email } = user
+            let msg, subj;
 
-            if (service === 'register') {
-                msg = await this.createMsgRegister(username);
-                subj = 'Bienvenid@';
-            } else if (service === 'resetPass') {
-                msg = await this.createMsgResetPassword(email);
-                subj = 'Recuperación de contraseña'
+            switch (service) {
+                case 'register':
+                    msg = await this.createMsgRegister(username);
+                    subj = 'Bienvenid@';
+                    break;
+                case 'resetPass':
+                    msg = await this.createMsgResetPassword(email);
+                    subj = 'Recuperación de contraseña';
+                    break;
+                case 'inactividad':
+                    msg = await this.createMsgUserInactive(username)
+                    subj = 'Cuenta eliminada por inactividad';
+                default:
+                    // Código a ejecutar si el valor de service no coincide con ningún caso
+                    break;
             }
 
             const gmailOptions = {
@@ -53,4 +61,13 @@ export default class MailingService {
                 para restablecer la contraseña
                 </p>`
     }
+    async createMsgUserInactive(first_name){
+        return (
+            `<h2>Hola ${first_name}, Tu cuenta fue eliminada por inactividad</h2>`
+        )};
+    
+    async createMsgDeleteProduct(first_name){
+        return (
+            `<h2>Hola ${first_name}, Se eliminó tu producto</h2>`
+        )};
 }

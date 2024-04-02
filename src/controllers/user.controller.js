@@ -2,7 +2,6 @@ import Controller from "./class.controller.js";
 import UserService from "../services/users/user.services.js";
 import { createResponse } from "../utils/utils.js";
 import { productionLogger } from "../utils/logger.winston.js";
-import { response } from "express";
 export default class UserController extends Controller {
     constructor() {
         super(new UserService());
@@ -117,5 +116,26 @@ export default class UserController extends Controller {
             }
             res.render('login')
         });
+    }
+    deleteUsers = async (req, res, next) => {
+        try {
+            const users = await this.service.deleteUsers();
+            if(users.length === 0) {
+                createResponse(res, 201, "No existen usuarios para eliminar")   
+            }else {
+                createResponse(res, 200, "Usuarios eliminados")   
+            }
+        } catch(error){
+            next(error);
+        };
+    };
+    getAllUsers = async (req, res, next) => {
+        try {
+            const users = await this.service.getAllUsers();
+            if (!users) return false;
+            else return createResponse(res, 200, users);
+        } catch (error) {
+            next(error.message)
+        }
     }
 }

@@ -1,6 +1,5 @@
 import { createResponse } from "../utils/utils.js";
 import { productionLogger } from "../utils/logger.winston.js";
-import { da } from "@faker-js/faker";
 
 export default class Controller {
     constructor(service) {

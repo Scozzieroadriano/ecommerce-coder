@@ -14,34 +14,35 @@ export default class UserMongoDao extends MongoDao {
     }
     async register(user) {
         try {
-            const {email, password} = user;
+            const { email, password } = user;
             const userExists = await this.getByEmail(email);
-            if(!userExists) {
+            if (!userExists) {
                 user.password = hashPassword(password);
-                const newUser =  await this.model.create(user);
+                const newUser = await this.model.create(user);
                 const token = await this.generateToken(newUser)
                 const newCart = await cartMongoDao.create()
                 await this.update(newUser._id, { cart: newCart._id });
-                return {message: 'Registro Exitoso', user: newUser, token: token};                
+                return { message: 'Registro Exitoso', user: newUser, token: token };
             } else {
                 throw new Error('El usuario ya existe');
             }
         } catch (error) {
             throw error;
         }
-    }   
+    }
     async login(user) {
         try {
-            const {email, password} = user;
+            const { email, password } = user;
             const userExists = await this.getByEmail(email);
-            if(userExists) {
-                if(isValidPassword(password, userExists)) {
+            if (userExists) {
+                if (isValidPassword(password, userExists)) {
                     const token = await this.generateToken(userExists)
-                    return {message: 'Login Exitoso', user: userExists, token: token};     
+                    await this.updateLastConnection(userExists._id);
+                    return { message: 'Login Exitoso', user: userExists, token: token };
                 } else {
                     throw new Error('Invalid password');
                 }
-            } else {               
+            } else {
                 throw new Error('El usuario no existe');
             }
         } catch (error) {
@@ -50,9 +51,9 @@ export default class UserMongoDao extends MongoDao {
     }
     async getByEmail(email) {
         try {
-            const userFound = await this.model.findOne({email});
+            const userFound = await this.model.findOne({ email });
             if (!userFound) return false;
-            else return userFound;    
+            else return userFound;
         } catch (error) {
             throw error;
         }
@@ -63,7 +64,7 @@ export default class UserMongoDao extends MongoDao {
             const payload = {
                 id: user._id
             };
-            const token = jwt.sign(payload, SECRET_KEY_JWT, {expiresIn: expires || '10m'});
+            const token = jwt.sign(payload, SECRET_KEY_JWT, { expiresIn: expires || '10m' });
             return token
         } catch (error) {
             throw error;
@@ -75,26 +76,43 @@ export default class UserMongoDao extends MongoDao {
             const user = await this.getByEmail(email);
             if (!user) {
                 throw new Error('Usuario no encontrado');
-            }else {
+            } else {
                 const token = await this.generateToken(user, '1h');
-                return { message: 'Se ha enviado un enlace de restablecimiento de contraseña al correo electrónico del usuario', token:token, user:user };
-            }            
+                return { message: 'Se ha enviado un enlace de restablecimiento de contraseña al correo electrónico del usuario', token: token, user: user };
+            }
         } catch (error) {
             throw error;
         }
     }
-    async changePassword(user,pass, newPassword) {
+    async changePassword(user, pass, newPassword) {
         try {
             if (pass === newPassword) {
-                if(isValidPassword(pass, user)) {
+                if (isValidPassword(pass, user)) {
                     throw new Error("La contraseña nueva no puede ser igual a la contraseña anterior");
-                }else {
+                } else {
                     const newPass = hashPassword(pass);
                     return await this.update(user._id, { password: newPass });
                 }
-            } else{
+            } else {
                 throw new Error("las constraseñas no coinciden");
             }
+        } catch (error) {
+            throw error;
+        }
+    }
+    async updateLastConnection(userId) {
+        try {
+            await this.model.updateOne({ _id: userId }, { $set: { last_connection: new Date() } });
+        } catch (error) {
+            throw error;
+        }
+    }
+    async deleteUsers() {
+        try {
+            const tenDaysAgo = new Date(Date.now() - 10 * 24 * 60 * 60 * 1000); // 10 days ago
+            const inactiveUsers = await this.model.find({ last_connection: { $lt: tenDaysAgo } });
+            await this.model.deleteMany({ _id: { $in: inactiveUsers.map(user => user._id) } });
+            return inactiveUsers;
         } catch (error) {
             throw error;
         }

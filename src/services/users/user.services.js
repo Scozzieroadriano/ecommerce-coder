@@ -17,9 +17,19 @@ export default class UserService extends Services {
             if(!user) return false;
             else return user;
         } catch (error) {
-            throw new Error('Error al obtener el usuarios');
+            throw new Error('Error al obtener el usuario');
         }
     }
+    async getAllUsers() {
+        try {
+            const users = await userRepository.getAllUsers();
+            if(!users) return false;
+            else return users;
+        } catch (error) {
+            throw new Error('Error al obtener los usuarios');
+        }
+    }
+
 
     async register(user) {
         try {
@@ -88,5 +98,17 @@ export default class UserService extends Services {
             
         }
     }
+    async deleteUsers() {
+        try{
+            const users = await userDao.deleteUsers();
+            users.forEach(user => {
+                mailingService.sendMail(user, 'Inactividad')
+            });
+        return users;
+
+        }catch(error){
+            throw new Error(error.message);
+        };
+    };
       
 }
