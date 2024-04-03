@@ -334,3 +334,69 @@ paths:
             aplication/json:
               schema:
                 $ref: '#/components/schemas/Carts/Error'
+    delete:
+      tags:
+        - Carts
+      summary: Borrar un producto del carrito
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: id referente al carrito
+          schema:
+            type: string
+        - in: path
+          name: pId
+          required: true
+          description: id referente al producto
+          schema:
+            type: string
+      responses:
+        200:
+          description: Producto eliminado del carrito
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Carts/DeleteProductInCart'
+        404:
+          description: No se encontro el carrito
+          content: 
+            apication/json:
+              schema:
+                $ref: '#/components/schemas/Carts/CartNotFound'
+        500:
+          description: Error de servidor
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/Carts/Error'
+  /api/users/register:
+    post:
+      tags:
+        - Users
+      summary: Registro de usuario
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/BodyPostUserRegister'
+        required: true
+      responses:
+        200:
+          description: Registro exitoso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/RegisterUser'
+        401: 
+          description: Error en validación del body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/BodyError'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/Error'

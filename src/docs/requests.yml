@@ -78,3 +78,45 @@ components:
           description: "Cantidad del Producto en el carrito"
         example:
           quantity: 2
+      BodyPostUserRegister:
+        type: object
+        required:
+          - first_name
+          - last_name
+          - email
+          - password
+        properties:
+          first_name:
+            type: string
+            description: Nombre del Usurario
+          last_name:
+            type: string
+            description: Apellido del usuario
+          email:
+            type: string
+            description: Mail del usuario
+          password:
+            type: string
+            description: Contraseña del usuario
+        example:
+          first_name: Adriano Alejo
+          last_name: Scozziero
+          email: scozzieroadriano@gmail.com
+          password: "12345432"
+      BodyPostUserLogin:
+        type: object
+        required: 
+          - first_name
+          - last_name
+          - email
+          - password 
+        properties:
+          email:
+            type: string
+            description: Mail del usuario
+          password:
+            type: string
+            description: Contraseña del usuario
+        example:
+          email: scozzieroadriano@gmail.com
+          password: "1234554321"

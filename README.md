@@ -16,7 +16,7 @@ Antes de comenzar, asegúrate de configurar el entorno adecuadamente.
 Para iniciar el servidor, ejecuta el siguiente comando:
 
 
-npm run dev
+npm start
 
 ### Endpoints
 
@@ -48,11 +48,11 @@ npm run dev
 
 Antes de ejecutar la aplicación, asegúrate de configurar las  variables de entorno:
 
-REVISAR ARCHIVO .env.example
+REVISAR ARCHIVO .envTest
 
 ## Documentación
 
 La documentación de la API está disponible en Swagger. Puedes acceder a ella visitando la ruta `/docs` cuando el servidor esté en funcionamiento. O a través del siguiente link:
-https://ecommerce-qp8i.onrender.com/docs/
+https://ecommerce-coder-sdwk.onrender.com/docs/
 
 ```bash
