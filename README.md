@@ -1,131 +1,58 @@
-# Ecommerce-Coder Backend
+# Backend de Aplicación E-commerce
 
-Este es el backend de un proyecto de ecommerce-coder desarrollado con Node.js, Express, Passport Google, JWT, Mongoose, Cookie-parser, y Bcrypt. La aplicación sigue una arquitectura de capas con DAOs, servicios, controladores y rutas, utilizando clases y herencias.
-
-## Requisitos
-
-Asegúrate de tener instalado Node.js y npm en tu máquina antes de comenzar.
+Este repositorio contiene el backend de una aplicación de e-commerce desarrollada en Node.js con express, mongoose, conectada a MongoDB. Utiliza type Modules. Se trata de una API para gestionar usuarios y productos, llevar a cabo una compra mediante carritos y tickets de compra. Utiliza swagger para documentar a fondo cada funcionalidad.
 
 ## Instalación
 
-1. Clona este repositorio:
+1. Clona este repositorio en tu máquina local.
+2. Ejecuta `npm install` para instalar todas las dependencias.
 
-```bash
-git clone https://github.com/Scozzieroadriano/ecommerce-coder
+## Uso
 
-cd ecommerce-coder-backend
+Antes de comenzar, asegúrate de configurar el entorno adecuadamente.
 
-npm install
+### Iniciar el servidor
+
+Para iniciar el servidor, ejecuta el siguiente comando:
+
 
 npm run dev
 
-```
-CONFIGURA LAS VARIABLES DE ENTORNO ANTES DE INICIAR
-## Uso
+### Endpoints
 
-Puedes realizar las siguientes operaciones con la API:
+#### Usuarios
 
-### Para autenticarse con Google, accede a la siguiente ruta:
+- **POST /api/users/register:** Registra un usuario nuevo.
+- **POST /api/users/login:** Inicia sesión del usuario y actualiza la fecha de conexión.
+- **GET /api/users/profile-cookie:** Accede al perfil del usuario.
+- **GET /api/users/all:** Accede a todos los usuarios. Solo los usuarios con rol de administrador pueden usar este endpoint.
+- **DELETE /api/users/delete:** Borra los usuarios que tengan más de 3 meses de inactividad. Solo los usuarios con rol de administrador pueden usar este endpoint.
+- **POST /api/users/profile-img:** Carga una imagen de perfil del usuario. Cuando se carga la imagen, el rol del usuario se actualiza a premium.
 
-http://localhost:8080/api/users/oauth2/redirect/accounts.google.com
+#### Productos
 
-- Esta ruta se utiliza tanto para el registro como para el inicio de sesión. Generará un token de autenticación y lo almacenará en una cookie. Si el token es validado por el middleware, la aplicación redireccionará a:
+- **GET /api/products/:** Lista todos los productos.
+- **POST /api/products/:** Crea un nuevo producto. Solo los usuarios premium pueden crear productos.
+- **GET /api/products/{id}:** Busca un producto por ID.
+- **DELETE /api/products/{id}:** Borra un producto por ID. Los usuarios con rol de administrador pueden borrar cualquier producto, y se envía un correo electrónico al creador del producto. Los usuarios premium solo pueden borrar sus propios productos.
 
-http://localhost:8080/api/session/current
+#### Carritos
 
-Mostrando los datos del usuario. En caso de error de autorización, se mostrará un mensaje de error.
+- **POST /api/carts/:** Crea un carrito. Solo los usuarios registrados pueden hacerlo.
+- **GET /api/carts/{id}:** Busca un carrito por ID. Los usuarios solo tienen acceso a sus propios carritos.
+- **PUT /api/carts/{idCart}/products/{idProd}:** Agrega un producto al carrito.
+- **DELETE /api/carts/{idCart}/products/{idProd}:** Elimina un producto del carrito.
+- **DELETE /api/tickets/{cartId}:** Vacía el carrito.
 
-- Para cerrar sesión y eliminar la cookie, accede a la siguiente ruta:
+## Configuración
 
-http://localhost:8080/api/session/logout
+Antes de ejecutar la aplicación, asegúrate de configurar las  variables de entorno:
 
-### Productos
+REVISAR ARCHIVO .env.example
 
-#### Obtener productos
+## Documentación
 
-- Ruta: `GET api/products`
-- Descripción: Obtén una lista de todos los productos. Puedes utilizar el parámetro de consulta `limit` para limitar la cantidad de productos que se muestran. (limit en desarrollo)
-- Ejemplo: `http://localhost:8080/api/products` para obtener todos los productos o `http://localhost:8080/api/products?limit=5` para obtener solo 5 productos.
+La documentación de la API está disponible en Swagger. Puedes acceder a ella visitando la ruta `/docs` cuando el servidor esté en funcionamiento. O a través del siguiente link:
+https://ecommerce-qp8i.onrender.com/docs/
 
-#### Obtener un producto específico
-
-- Ruta: `GET http://localhost:8080/api/products/:productId`
-- Descripción: Obtén los detalles de un producto específico proporcionando su ID.
-- Ejemplo: `http://localhost:8080/api/products/2` para obtener los detalles del producto con ID 2.
-
-#### Crear un producto
-
-- Ruta: `POST http://localhost:8080/api/products`
-- Descripción: Crea un producto específico proporcionando su información correcta.
-- Ejemplo: `http://localhost:8080/api/products` para crear un producto con lasiguiente informacion.
-        {
-            "title": "Producto de prueba Luis",
-            "description": "Este es un producto de prueba",
-            "code": "123956",
-            "price": 99.99,
-            "status": true,
-            "stock": 10,
-            "category": "Prueba",
-            "thumbnails": ""
-        }
-##### Actualizar un producto
-
-- Ruta: `POST http://localhost:8080/api/products/:productId`
-- Descripción: Actualiza un producto específico proporcionando su id y la información a cambiar.
-- Ejemplo: `http://localhost:8080/api/products/64e57ca8d86d4ba4e6a38d1f` para actualizar un producto con lasiguiente informacion.
-        {
-        "title": "Cambiado por luis3"
-        } 
-
-#### ELIMINAR UN PRODUCTO  
-- Ruta: `DELETE http://localhost:8080/api/products/:productId`
-- Descripción: Elimina un producto específico proporcionando su id.
-- Ejemplo: `http://localhost:8080/api/products/64e57ca8d86d4ba4e6a38d1f` para eliminar un producto.
-
-
-### Carritos
-
-#### Crear un carrito nuevo
-
-- Ruta: `POST api/carts`
-- Descripción: Crea un nuevo carrito y devuelve su información, incluyendo un ID único.
-
-#### Agregar productos a un carrito
-
-- Ruta: `POST api/carts/:cartId/products/:productId`
-- Descripción: Agrega un producto a un carrito específico. Proporciona el ID del carrito y el ID del producto en la URL.
-
-#### Obtener detalles de un carrito
-
-- Ruta: `GET api/carts/:cartId`
-- Descripción: Obtiene los detalles de un carrito específico proporcionando su ID.
-
-#### Obtener detalles de todos los carritos
-
-- Ruta: `GET api/carts/`
-- Descripción: Obtiene los detalles de todos los carritos creados.
-
-##### Eliminar producto 
-
-- Ruta: `DELETE api/carts/:cid/products/:idprod`
-- Descripción: Elimina el producto seleccionado del carrito
-
-#### Actualizar carrito
-
-- Ruta: `PUT api/carts/:cid`
-- Descripción: Actualiza el carrito con el array deseado, debe tener el mismo formato que el modelo en mongoose.
-
-#### Actualizar cantidad de producto
-
-- Ruta: `PUT api/carts/:cid/products/:idprod`
-- Descripción: Solo actualizara la cantidad de un producto seleccionado que se encuentre en el carrito,
-con la cantidad que ingrese por body
-
-#### Borrar todos los productos
-
-- Ruta: `DELETE api/carts/:cid`
-- Descripción: Elimina todos los productos dentro del carrito, deja un array vacio en el carrito seleccionado
-
-#### Borrar carrito
-- Ruta: `DELETE api/carts/:cid`
-- Descripción: Elimina el carrito seleccionado
+```bash
