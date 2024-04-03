@@ -10,6 +10,7 @@ export default async function isPremium(req, res, next) {
     try {
         // TOMO EL TOKEN DESDE LA COOKIE, SI NO EXISTE LO TOMO DESDE EL HEADER
         const AuthHeader = req.cookies.token || req.get("Authorization").split(" ")[1]
+        
         if (!AuthHeader) {
             return res.status(401).json({ message: "Unauthorized" });
         } else {
@@ -21,6 +22,7 @@ export default async function isPremium(req, res, next) {
             if (user.role === "premium" && idProduct) {
                 const product = await productServices.getById(idProduct.toString());
                 if (user.email === product.owner) {
+                    req.user = user;
                     next(); // si el usuario es el propietario del producto
                 } else {
                     return res.status(402).json({ message: "El producto solo puede ser modificado por el usuario creador" });

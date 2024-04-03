@@ -17,21 +17,24 @@ export default class MailingService {
 
     async sendMail(user, service, token = null) {
         try {
-            const { username, email } = user
+            const { first_name, email } = user
             let msg, subj;
 
             switch (service) {
                 case 'register':
-                    msg = await this.createMsgRegister(username);
+                    msg = await this.createMsgRegister(first_name);
                     subj = 'Bienvenid@';
                     break;
                 case 'resetPass':
                     msg = await this.createMsgResetPassword(email);
                     subj = 'Recuperación de contraseña';
                     break;
-                case 'inactividad':
-                    msg = await this.createMsgUserInactive(username)
+                case 'inactive':
+                    msg = await this.createMsgUserInactive(first_name)
                     subj = 'Cuenta eliminada por inactividad';
+                case 'deleteProduct':
+                    msg = await this.createMsgDeleteProduct(first_name)
+                    subj = 'Producto eliminado';
                 default:
                     // Código a ejecutar si el valor de service no coincide con ningún caso
                     break;
@@ -61,13 +64,13 @@ export default class MailingService {
                 para restablecer la contraseña
                 </p>`
     }
-    async createMsgUserInactive(first_name){
+    async createMsgUserInactive(username){
         return (
-            `<h2>Hola ${first_name}, Tu cuenta fue eliminada por inactividad</h2>`
+            `<h2>Hola ${username}, Tu cuenta fue eliminada por inactividad</h2>`
         )};
     
-    async createMsgDeleteProduct(first_name){
+    async createMsgDeleteProduct(username){
         return (
-            `<h2>Hola ${first_name}, Se eliminó tu producto</h2>`
+            `<h2>Hola ${username}, Se eliminó tu producto</h2>`
         )};
 }

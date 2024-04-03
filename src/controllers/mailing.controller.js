@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import MailingService from '../services/users/mailing.services.js';
+import MailingService from '../services/mailing/mailing.services.js';
 const mailingService = new MailingService();
 
 export default class EmailController{

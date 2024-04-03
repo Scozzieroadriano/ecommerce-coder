@@ -1,7 +1,7 @@
 import Services from "../class.services.js";
 import persistence from "../../persistence/persistence.js";
 import UserRepository from "../../repository/user.repository.js";
-import MailingService from "./mailing.services.js";
+import MailingService from "../mailing/mailing.services.js";
 const mailingService = new MailingService();
 const userRepository = new UserRepository();
 const { userDao } = persistence;
@@ -102,7 +102,7 @@ export default class UserService extends Services {
         try{
             const users = await userDao.deleteUsers();
             users.forEach(user => {
-                mailingService.sendMail(user, 'Inactividad')
+                mailingService.sendMail(user, 'inactive')
             });
         return users;
 

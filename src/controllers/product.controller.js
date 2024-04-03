@@ -39,4 +39,15 @@ export default class ProductController extends Controller {
             next(error.message);
         }
     }
+    deleteProduct = async (req,res,next) => {
+        try {
+            const productId = req.params.id
+            const user = req.user
+            const item = await this.service.deleteProduct(productId,user)
+            if(item) createResponse(res,200,'Producto eliminado');
+            return false;
+        } catch (error) {
+            next(error.message);
+        }
+    }
 }
