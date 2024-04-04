@@ -16,7 +16,7 @@ export default class ApiRoutes {
         this.router.use('/api/users', userRoutes);
         this.router.use('/api/products', productRoutes);
         this.router.use('/api/carts', cartRoutes);
-        this.router.use('/api/cart', ticketRoutes);
+        this.router.use('/api/ticket', ticketRoutes);
         this.router.use('/api/session', sessionRoutes);
         this.router.use('/', viewRoutes);
         this.router.use('/api/gmail',mailingRoutes);

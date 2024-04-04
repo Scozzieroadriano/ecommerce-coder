@@ -159,6 +159,7 @@ paths:
             aplication/json:
               schema:
                 $ref: '#/components/schemas/Products/Error'
+
   /api/carts:
     post:
       tags:
@@ -370,6 +371,31 @@ paths:
             aplication/json:
               schema:
                 $ref: '#/components/schemas/Carts/Error'
+ 
+  /api/users:
+    get:
+      tags:
+        - Users
+      summary: Obtener todos los usuarios
+      responses:
+        200:
+          description: Lista de usuario registrados
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users/GetAllUsers'
+        401:
+          description: Usuario no autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users/ValidationTokenAndPermissions'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users/Error'
   /api/users/register:
     post:
       tags:
@@ -387,16 +413,100 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schema/Users/RegisterUser'
+                $ref: '#/components/schemas/Users/RegisterUser'
         401: 
           description: Error en validación del body
           content:
             application/json:
               schema:
-                $ref: '#/components/schema/Users/BodyError'
+                $ref: '#/components/schemas/Users/BodyError'
         500:
           description: Error del servidor
           content:
             application/json:
               schema:
-                $ref: '#/components/schema/Users/Error'
+                $ref: '#/components/schemas/Users/Error'
+  /api/users/login:
+    post:
+      tags:
+      - Users
+      summary: Login de usuario
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/BodyPostUserLogin'
+      responses:
+        200:
+          description: Usuario se logueó correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users/LoginUser'
+        404: 
+          description: Error en validación del body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users/BodyError'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users/Error'
+  /api/users/delete:
+    delete:
+      tags:
+        - Users
+      summary: Borrar usuarios inactivos
+      responses:
+        200:
+          description: Se eliminaran usuarios inactivos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users/DeleteInactive'
+        401:
+          description: Usuario no autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users/ValidationTokenAndPermissions'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users/Error'
+  /api/ticket/:cartId/purchase:
+    post:
+      tags:
+        - Tickets
+      summary: Creacion de ticket de compra
+      parameters:
+        - in: path
+          name: cartId
+          required: true
+          description: Id del carrito a buscar
+          schema:
+            type: string
+      responses:
+        200:
+          description: Ticket generado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tickets/GenerateTicket'
+        401:
+          description: Usuario no autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tickets/ValidationTokenAndPermissions'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tickets/Error'

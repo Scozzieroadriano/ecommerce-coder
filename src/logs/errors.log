@@ -42,3 +42,6 @@
 {"level":"error","message":"Invalid password"}
 {"level":"error","message":"Invalid password"}
 {"level":"error","message":"Invalid password"}
+{"level":"error","message":"users validation failed: last_name: Path `last_name` is required., first_name: Path `first_name` is required."}
+{"level":"error","message":"Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials w6-20020a170902e88600b001e2772fc413sm1776570plg.309 - gsmtp"}
+{"level":"error","message":"El usuario ya existe"}

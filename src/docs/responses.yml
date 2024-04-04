@@ -299,7 +299,7 @@ components:
           message:
             type: string
             description: Mensaje de estado de la operación
-          data:
+          user:
             type: object
             properties:
               first_name:
@@ -320,15 +320,25 @@ components:
               role:
                 type: string
                 description: Rol del usuario
-              isGithub:
-                type: string
-                description: Registro mediante Github
-              isGoogle:
-                type: string
-                description: Registro mediante Gmail
               id:
                 type: string
                 description: Id del usuario
+              last_conecction:
+                type: string
+                description: Fecha de ultima conexión del usuario
+        example:   
+          status: 200   
+          message: "Registro Exitoso"
+          user: 
+            first_name": adrianitao
+            last_name: scozzierao
+            email: scozzieroadrian5a555o@gmail.com
+            password: $2b$10$aRtKNqyysMREWhOeMaX4/eZTO6BF0ZeQgLnlyBZujegnNNEy4LOMy
+            age: 0
+            role: user
+            _id: 660dea5ce0648687c4b98406
+            last_connection": 2024-04-03T23:46:36.936Z
+            documents": []
       Error:
         type: object
         properties:
@@ -350,8 +360,8 @@ components:
             type: string
             description: No se pudo concretar la operación
         example:
-          - {message: "Su rol no permite realizar esta operación"}
-          - {message: "Unauthorized"}
+          - {message: "Ocurrio un error al procesar la solicitud"}
+          - {message: "erorr en los campos - campos requeridos"}
       LoginUser:
         type: object
         properties:
@@ -361,15 +371,37 @@ components:
           message:
             type: string
             description: Mensaje de estado de la operación
-          data:
+          user:
             type: object
             properties:
-              token:
+              _id:
                 type: string
-                description: Token del usuario
-              userId:
+                description: id del user
+              first_name:
                 type: string
-                description: Id del usuario  
+                description: Nombre del Usurario
+              last_name:
+                type: string
+                description: Apellido del usuario
+              role:
+                type: string
+                description: Rol del usuario
+              cart:
+               type: string
+               description: Id del carrito              
+          token:
+            type: string
+            description: Token del usuario
+        example:   
+          status: 200   
+          message: "Login Exitoso"
+          user: 
+            id: 123123gsdf
+            first_name: adrianito
+            last_name: scozziero
+            role: user
+            cart: 123512j21i3j12
+          token: <KEY>
       GetAllUsers:
         type: object
         properties:
@@ -406,3 +438,55 @@ components:
                   type: string
                   format: date-time
                   description: Fecha de última conexión
+      ValidationTokenAndPermissions:
+        type: object
+        properties:
+          message:
+            type: string
+            description: "Mensaje de respuesta si no tiene permisos específicos"
+        example:
+          - {message: "Su rol no permite realizar esta operación"}
+          - {message: "Unauthorized"}
+      DeleteInactive:
+       type: object
+       properties:
+         message:
+           type: string
+       example:
+          - {message: "Usuarios borrados con exito"}
+    Tickets:
+      GenerateTicket:
+        type: object
+        properties:
+          code:
+            type: string
+            description: Código del ticket
+          purchase_datetime:
+            type: string
+            description: Fecha de la compra
+          amount:
+            type: decimal
+            description: Monto de la compra
+          purchaser:
+            type: string
+            description: mail del comprador
+          _id:
+            type: string
+            description: Id del ticket
+      Error:
+        type: object
+        properties:
+          message:
+            type: string
+            description: "Mensaje de respuesta del error"
+        example:
+          - {message: "Error al crear el ticket"}
+      ValidationTokenAndPermissions:
+        type: object
+        properties:
+          message:
+            type: string
+            description: "Mensaje de respuesta si no tiene permisos específicos"
+        example:
+          - {message: "Su rol no permite realizar esta operación"}
+          - {message: "Unauthorized"}

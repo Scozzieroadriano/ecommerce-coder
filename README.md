@@ -15,36 +15,38 @@ Antes de comenzar, asegúrate de configurar el entorno adecuadamente.
 
 Para iniciar el servidor, ejecuta el siguiente comando:
 
-
 npm start
 
 ### Endpoints
 
-#### Usuarios
-
-- **POST /api/users/register:** Registra un usuario nuevo.
-- **POST /api/users/login:** Inicia sesión del usuario y actualiza la fecha de conexión.
-- **GET /api/users/profile-cookie:** Accede al perfil del usuario.
-- **GET /api/users/all:** Accede a todos los usuarios. Solo los usuarios con rol de administrador pueden usar este endpoint.
-- **DELETE /api/users/delete:** Borra los usuarios que tengan más de 3 meses de inactividad. Solo los usuarios con rol de administrador pueden usar este endpoint.
-- **POST /api/users/profile-img:** Carga una imagen de perfil del usuario. Cuando se carga la imagen, el rol del usuario se actualiza a premium.
-
 #### Productos
 
+- **POST /api/products/:** Crea un nuevo producto si el rol del usuario es premium.
 - **GET /api/products/:** Lista todos los productos.
-- **POST /api/products/:** Crea un nuevo producto. Solo los usuarios premium pueden crear productos.
 - **GET /api/products/{id}:** Busca un producto por ID.
+- **PUT /api/products/{id}:** Modificar un producto por ID
 - **DELETE /api/products/{id}:** Borra un producto por ID. Los usuarios con rol de administrador pueden borrar cualquier producto, y se envía un correo electrónico al creador del producto. Los usuarios premium solo pueden borrar sus propios productos.
 
 #### Carritos
 
-- **POST /api/carts/:** Crea un carrito. Solo los usuarios registrados pueden hacerlo.
-- **GET /api/carts/{id}:** Busca un carrito por ID. Los usuarios solo tienen acceso a sus propios carritos.
-- **PUT /api/carts/{idCart}/products/{idProd}:** Agrega un producto al carrito.
+- **POST /api/carts/:** Crea un carrito. Se crea cuando el usuario se registra.
+- **GET /api/carts/:** Obtiene todos los carritos. Solo Admins
+- **GET /api/carts/{id}:** Busca un carrito por ID. filtra carrito por usuario, es decir un usuario puede ver su propio carrito.
+- **DELETE /api/carts/{id}:** Borra un carrito por ID
+- **POST /api/carts/{idCart}/products/{idProd}:** Agrega un producto al carrito.
+- **PUT /api/carts/{idCart}/products/{idProd}:** Modifica la cantidad de un producto en el carrito.
 - **DELETE /api/carts/{idCart}/products/{idProd}:** Elimina un producto del carrito.
 - **DELETE /api/tickets/{cartId}:** Vacía el carrito.
 
-## Configuración
+#### Usuarios
+
+- **GET /api/users/:** Lista todos los usuarios. Solo los usuarios con rol de administrador pueden usar este endpoint.
+- **POST /api/users/register:** Registra un usuario nuevo.
+- **POST /api/users/login:** Inicia sesión del usuario y actualiza la fecha de conexión.
+- **GET /api/users/profile-cookie:** Accede al perfil del usuario.
+- **DELETE /api/users/delete:** Borra los usuarios que tengan más de 10 dias de inactividad. Solo admins.
+
+## Configuración extra
 
 Antes de ejecutar la aplicación, asegúrate de configurar las  variables de entorno:
 
@@ -52,7 +54,7 @@ REVISAR ARCHIVO .envTest
 
 ## Documentación
 
-La documentación de la API está disponible en Swagger. Puedes acceder a ella visitando la ruta `/docs` cuando el servidor esté en funcionamiento. O a través del siguiente link:
-https://ecommerce-coder-sdwk.onrender.com/docs/
+La documentación de la API está disponible en Swagger. Puedes acceder a ella visitando la ruta `/docs` cuando el servidor esté en funcionamiento. O a través del siguiente [link](https://ecommerce-coder-sdwk.onrender.com/docs/).
+
 
 ```bash
