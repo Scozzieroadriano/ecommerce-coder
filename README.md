@@ -49,8 +49,9 @@ npm start
 ## Configuración extra
 
 Antes de ejecutar la aplicación, asegúrate de configurar las  variables de entorno:
-
 REVISAR ARCHIVO .envTest
+                                        **IMPORTANT**
+**Cuando accedan al link de swagger cambiar de servidor, ya que existen dos, developer y produccion.**
 
 ## Documentación
 
