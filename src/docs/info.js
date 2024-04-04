@@ -12,7 +12,7 @@ export const info = {
                 description: "Development server"
             },
             {
-                url: "https://ecommerce-coder-sdwk.onrender.com/docs/",
+                url: "https://ecommerce-coder-sdwk.onrender.com",
                 description: "Production server"
             }
         ],
